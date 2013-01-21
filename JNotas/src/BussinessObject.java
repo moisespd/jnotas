@@ -25,6 +25,20 @@ class BussinessObject {
 	protected void setPropertyChanged() {
 		this.isDirty = true;
 	}
+	
+	
+	public boolean isValid() {
+		return isValid;
+	}
+
+	public boolean isNew() {
+		return isNew;
+	}
+
+	public boolean isDirty() {
+		return isDirty;
+	}
+
 	// ##################################################################################
 	// ##################################################################################
 	// ##################################################################################

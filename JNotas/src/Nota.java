@@ -25,6 +25,10 @@ public class Nota extends BussinessObject {
 	// ##################################################################################
 	// ##################################################################################
 	// ##################################################################################
+	public void setId(int id) {
+		this.id = id;
+	}
+	
 	public int getIdCarpeta() {
 		return idCarpeta;
 	}
@@ -88,6 +92,8 @@ public class Nota extends BussinessObject {
 		this.id = -1;
 		this.idCarpeta = -1;
 		this.fechaCreacion = new Date();
+		this.fechaInicio = new Date();
+		this.fechaFin = new Date();
 		this.titulo = new String("Nueva nota (" + String.valueOf(this.id) + ")");
 		this.descripcion = new String("");
 	}
@@ -107,6 +113,16 @@ public class Nota extends BussinessObject {
 				"[p." + String.valueOf(this.prioridad) + "] " +
 				this.titulo + " (id." + String.valueOf(this.id) + ")";  
 	
+	}
+	// ----------------------------------------------------------------------------------
+	public boolean equals(Nota n) {
+		if ((this.id != n.getId()) ||
+			(! this.titulo.equals(n.getTitulo())) ||
+			(! this.descripcion.equals(n.getDescripcion())) ||
+			(this.prioridad != n.getPrioridad()))
+			return false;
+		
+		return true;
 	}
 	// ##################################################################################
 	// ##################################################################################
