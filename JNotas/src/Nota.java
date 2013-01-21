@@ -1,4 +1,6 @@
 import java.util.Date;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class Nota extends BussinessObject {
 	// ##################################################################################
@@ -122,6 +124,17 @@ public class Nota extends BussinessObject {
 	// ##################################################################################
 	// ##################################################################################
 	// ##################################################################################
-
+	
+	public void Save() throws IOException {
+		FileWriter f = new FileWriter("Notas.txt", true);
+		f.write(String.valueOf(this.id) + ";");
+		f.write(String.valueOf(this.idCarpeta) + ";");
+		f.write(this.titulo + ";");
+		f.write(this.descripcion + ";");
+		f.write(String.valueOf(this.prioridad) + ";");
+		f.write("\n");
+		
+		f.close();
+	}
 	// ##################################################################################
 }
