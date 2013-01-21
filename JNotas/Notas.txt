@@ -1,2 +1,4 @@
--1;-1;Nota de prueba;Esto es simplemente una nota de prueba;100;
--1;-1;Nota de prueba;Esto es simplemente una nota de prueba;100;
+1;-1;Nota de prueba 1;Nota1;10;
+2;-1;Nota de prueba 2;Nota2;20;
+3;-1;Nota de prueba 3;Nota3;30;
+4;-1;Nota de prueba 4;Nota4;40;

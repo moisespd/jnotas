@@ -56,11 +56,11 @@ class BussinessObject {
 	// ##################################################################################
 	// ##################################################################################
 
-	public void Save() throws Exception {
+	public void save() throws Exception {
 		throw new Exception("Método no implementado!");
 	}
 	
-	public BussinessObject Get(int id) throws Exception {
+	public void get(int id) throws Exception {
 		throw new Exception("Método no implementado!");
 	}
 	// ##################################################################################

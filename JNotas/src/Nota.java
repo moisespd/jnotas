@@ -1,5 +1,4 @@
 import java.util.Date;
-import java.io.FileWriter;
 import java.io.IOException;
 
 public class Nota extends BussinessObject {
@@ -125,16 +124,43 @@ public class Nota extends BussinessObject {
 	// ##################################################################################
 	// ##################################################################################
 	
-	public void Save() throws IOException {
-		FileWriter f = new FileWriter("Notas.txt", true);
-		f.write(String.valueOf(this.id) + ";");
-		f.write(String.valueOf(this.idCarpeta) + ";");
-		f.write(this.titulo + ";");
-		f.write(this.descripcion + ";");
-		f.write(String.valueOf(this.prioridad) + ";");
-		f.write("\n");
-		
-		f.close();
+	public void save() throws IOException {
+		String strNota = JNO_P_NotaCreate();
+		NotasDB.save(strNota);
 	}
+	
+	// ----------------------------------------------------------------------------------
+	public void get(int id) throws IOException {
+		String[] rs = NotasDB.get(id);
+		cargarRecordset(rs);
+	}
+	// ----------------------------------------------------------------------------------
+	private void cargarRecordset(String[] rs) {
+		this.id = Integer.parseInt(rs[0]);
+		this.idCarpeta = Integer.parseInt(rs[1]);
+		this.titulo = new String(rs[2]);
+		this.descripcion = new String(rs[3]);
+		this.prioridad = Integer.parseInt(rs[4]);
+	}
+	// ##################################################################################
+	// ##################################################################################
+	// ##################################################################################
+	// PROCEDIMIENTOS ALMACENADOS
+	// ##################################################################################
+	// ##################################################################################
+	// ##################################################################################
+	private String JNO_P_NotaCreate() {
+		String strNota;
+		
+		strNota = new String(
+				String.valueOf(this.id) + ";" +
+				String.valueOf(this.idCarpeta) + ";" + 
+				this.titulo + ";" + 
+				this.descripcion + ";" +
+				String.valueOf(this.prioridad) + ";" +
+				"\n");
+		return strNota;
+	}
+	
 	// ##################################################################################
 }
