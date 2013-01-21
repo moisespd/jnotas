@@ -1,6 +1,4 @@
-import java.util.Date;
-
-public class Nota extends BussinessObject {
+class BussinessObject {
 	// ##################################################################################
 	// ##################################################################################
 	// ##################################################################################
@@ -8,15 +6,11 @@ public class Nota extends BussinessObject {
 	// ##################################################################################
 	// ##################################################################################
 	// ##################################################################################
-
-	private int idCarpeta;
-	private String titulo;
-	private String descripcion;
-	private Date fechaCreacion;
-	private Date fechaInicio;
-	private Date fechaFin;
-	private int prioridad;
-
+	protected int id;
+	
+	protected boolean isValid;
+	protected boolean isNew;
+	protected boolean isDirty;
 	// ##################################################################################
 	// ##################################################################################
 	// ##################################################################################
@@ -24,56 +18,12 @@ public class Nota extends BussinessObject {
 	// ##################################################################################
 	// ##################################################################################
 	// ##################################################################################
-	public int getIdCarpeta() {
-		return idCarpeta;
-	}
-	
-	public void setIdCarpeta(int idCarpeta) {
-		this.idCarpeta = idCarpeta;
+	public int getId() {
+		return id;
 	}
 
-	public String getTitulo() {
-		return titulo;
-	}
-	
-	public void setTitulo(String titulo) {
-		this.titulo = titulo;
-	}
-	
-	public String getDescripcion() {
-		return descripcion;
-	}
-	
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
-	}
-	
-	public Date getFechaCreacion() {
-		return fechaCreacion;
-	}
-		
-	public Date getFechaInicio() {
-		return fechaInicio;
-	}
-	
-	public void setFechaInicio(Date fechaInicio) {
-		this.fechaInicio = fechaInicio;
-	}
-	
-	public Date getFechaFin() {
-		return fechaFin;
-	}
-	
-	public void setFechaFin(Date fechaFin) {
-		this.fechaFin = fechaFin;
-	}	
-
-	public int getPrioridad() {
-		return prioridad;
-	}
-
-	public void setPrioridad(int prioridad) {
-		this.prioridad = prioridad;
+	protected void setPropertyChanged() {
+		this.isDirty = true;
 	}
 	// ##################################################################################
 	// ##################################################################################
@@ -82,17 +32,10 @@ public class Nota extends BussinessObject {
 	// ##################################################################################
 	// ##################################################################################
 	// ##################################################################################
-	public Nota() {
-		super();
-		this.id = -1;
-		this.idCarpeta = -1;
-		this.fechaCreacion = new Date();
-		this.titulo = new String("Nueva nota (" + String.valueOf(this.id) + ")");
-		this.descripcion = new String("");
-	}
-	public Nota(int idCarpeta) {
-		this();
-		this.idCarpeta = idCarpeta;
+	public BussinessObject() {
+		this.isValid = false;
+		this.isNew = true;
+		this.isDirty = false;
 	}
 	// ##################################################################################
 	// ##################################################################################
@@ -101,21 +44,11 @@ public class Nota extends BussinessObject {
 	// ##################################################################################
 	// ##################################################################################
 	// ##################################################################################
+	// ##################################################################################
 	public String toString() {
-		return 
-				"[p." + String.valueOf(this.prioridad) + "] " +
-				this.titulo + " (id." + String.valueOf(this.id) + ")";  
-	
+		return String.valueOf(this.id);
 	}
-	// ##################################################################################
-	// ##################################################################################
-	// ##################################################################################
-	// VALIDACIÓN
-	// ##################################################################################
-	// ##################################################################################
-	// ##################################################################################
 	
-	// ##################################################################################
 	// ##################################################################################
 	// ##################################################################################
 	// ACCESO A DATOS
@@ -123,5 +56,19 @@ public class Nota extends BussinessObject {
 	// ##################################################################################
 	// ##################################################################################
 
+	public void Save() throws Exception {
+		throw new Exception("Método no implementado!");
+	}
+	
+	public BussinessObject Get(int id) throws Exception {
+		throw new Exception("Método no implementado!");
+	}
 	// ##################################################################################
+	// ##################################################################################
+	// ##################################################################################
+	// ???
+	// ##################################################################################
+	// ##################################################################################
+	// ##################################################################################
+	
 }
