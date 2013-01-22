@@ -21,20 +21,19 @@ class BussinessObject {
 	public int getId() {
 		return id;
 	}
-
+	// ----------------------------------------------------------------------------------
 	protected void setPropertyChanged() {
 		this.isDirty = true;
 	}
-	
-	
+	// ----------------------------------------------------------------------------------
 	public boolean isValid() {
 		return isValid;
 	}
-
+	// ----------------------------------------------------------------------------------
 	public boolean isNew() {
 		return isNew;
 	}
-
+	// ----------------------------------------------------------------------------------
 	public boolean isDirty() {
 		return isDirty;
 	}
@@ -73,7 +72,7 @@ class BussinessObject {
 	public void save() throws Exception {
 		throw new Exception("Método no implementado!");
 	}
-	
+	// ----------------------------------------------------------------------------------
 	public void get(int id) throws Exception {
 		throw new Exception("Método no implementado!");
 	}

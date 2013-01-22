@@ -4,7 +4,7 @@ public class Main {
 	public static void main(String[] args) {
 		Nota nota = new Nota();
 		try {
-			nota.get(3);
+			nota.save();
 			System.out.println(nota.toString());
 		} 
 		catch (IOException e) {

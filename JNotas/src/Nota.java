@@ -28,55 +28,55 @@ public class Nota extends BussinessObject {
 	public void setId(int id) {
 		this.id = id;
 	}
-	
+	// ----------------------------------------------------------------------------------
 	public int getIdCarpeta() {
 		return idCarpeta;
 	}
-	
+	// ----------------------------------------------------------------------------------
 	public void setIdCarpeta(int idCarpeta) {
 		this.idCarpeta = idCarpeta;
 	}
-
+	// ----------------------------------------------------------------------------------
 	public String getTitulo() {
 		return titulo;
 	}
-	
+	// ----------------------------------------------------------------------------------
 	public void setTitulo(String titulo) {
 		this.titulo = titulo;
 	}
-	
+	// ----------------------------------------------------------------------------------
 	public String getDescripcion() {
 		return descripcion;
 	}
-	
+	// ----------------------------------------------------------------------------------
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-	
+	// ----------------------------------------------------------------------------------
 	public Date getFechaCreacion() {
 		return fechaCreacion;
 	}
-		
+	// ----------------------------------------------------------------------------------
 	public Date getFechaInicio() {
 		return fechaInicio;
 	}
-	
+	// ----------------------------------------------------------------------------------
 	public void setFechaInicio(Date fechaInicio) {
 		this.fechaInicio = fechaInicio;
 	}
-	
+	// ----------------------------------------------------------------------------------
 	public Date getFechaFin() {
 		return fechaFin;
 	}
-	
+	// ----------------------------------------------------------------------------------
 	public void setFechaFin(Date fechaFin) {
 		this.fechaFin = fechaFin;
 	}	
-
+	// ----------------------------------------------------------------------------------
 	public int getPrioridad() {
 		return prioridad;
 	}
-
+	// ----------------------------------------------------------------------------------
 	public void setPrioridad(int prioridad) {
 		this.prioridad = prioridad;
 	}
@@ -89,7 +89,7 @@ public class Nota extends BussinessObject {
 	// ##################################################################################
 	public Nota() {
 		super();
-		this.id = -1;
+		this.id = NotasDB.newId();
 		this.idCarpeta = -1;
 		this.fechaCreacion = new Date();
 		this.fechaInicio = new Date();
@@ -97,6 +97,7 @@ public class Nota extends BussinessObject {
 		this.titulo = new String("Nueva nota (" + String.valueOf(this.id) + ")");
 		this.descripcion = new String("");
 	}
+	// ----------------------------------------------------------------------------------
 	public Nota(int idCarpeta) {
 		this();
 		this.idCarpeta = idCarpeta;
