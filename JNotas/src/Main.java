@@ -1,14 +1,15 @@
-import java.io.IOException;
-
 public class Main {
 	public static void main(String[] args) {
-		Nota nota = new Nota();
+		Nota nota;
 		try {
-			nota.save();
-			System.out.println(nota.toString());
+			FrmNota frame = new FrmNota();
+			frame.setVisible(true);
+			nota = new Nota();
+			nota.get(100);
+			frame.setNota(nota);
 		} 
-		catch (IOException e) {
-			System.out.println("Error accediendo al fichero de notas (" + e.getMessage() + ")");
+		catch (Exception e) {
+			System.out.println("Error!!!");
 		}
 	}
 }
