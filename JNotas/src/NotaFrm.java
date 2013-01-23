@@ -12,22 +12,16 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 
-public class NotaFrm extends JFrame {
-	// ##################################################################################
-	// ##################################################################################
-	// ##################################################################################
-	// ATRIBUTOS
-	// ##################################################################################
-	// ##################################################################################
-	// ##################################################################################
+public class NotaFrm extends JFrame implements ActionListener {
+	
+	// #region Atributos
+	
 	Nota nota;
-	// ##################################################################################
-	// ##################################################################################
-	// ##################################################################################
-	// ATRIBUTOS DEL DISEÑADOR DE FORMULARIOS
-	// ##################################################################################
-	// ##################################################################################
-	// ##################################################################################
+	
+	// #endregion
+	
+	// #region Atributos del diseñador de formularios
+	
 	private JPanel contentPane;
 	private static final long serialVersionUID = 0;
 	private JTextField txtId;
@@ -38,13 +32,12 @@ public class NotaFrm extends JFrame {
 	private JTextField txtFechaInicio;
 	private JTextField txtFechaFin;
 	private JTextField txtPrioridad;
-	// ##################################################################################
-	// ##################################################################################
-	// ##################################################################################
-	// GETTERS/SETTERS
-	// ##################################################################################
-	// ##################################################################################
-	// ##################################################################################
+	private JButton btnGuardar;
+	
+	// #endregion
+	
+	// #region Getters/setters
+	
 	public void setNota(Nota n) {
 		this.nota = n;
 		
@@ -55,13 +48,10 @@ public class NotaFrm extends JFrame {
 		this.txtPrioridad.setText(String.valueOf(n.getPrioridad()));
 		this.txtFechaCreacion.setText(String.valueOf(n.getFechaCreacion().toString()));
 	}
-	// ##################################################################################
-	// ##################################################################################
-	// ##################################################################################
-	// CONSTRUCTOR
-	// ##################################################################################
-	// ##################################################################################
-	// ##################################################################################
+	
+	// #endregion
+	
+	// #region Constructor
 
 	public NotaFrm() {
 
@@ -152,29 +142,40 @@ public class NotaFrm extends JFrame {
 		txtPrioridad.setColumns(10);
 		txtPrioridad.setBounds(176, 199, 262, 19);
 		contentPane.add(txtPrioridad);
-		
-		JButton btnGuardar = new JButton("Guardar");
-		btnGuardar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				System.out.println("1");
-				Nota n = new Nota();
-				System.out.println("2");
-				n.setTitulo(txtTitulo.getText());
-				System.out.println("3");
-				n.setDescripcion(txtDescripcion.getText());
-				System.out.println("4");
-				
-				try {
-					System.out.println("5");
-					n.save();
-					System.out.println("6");
-				}
-				catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+
+		btnGuardar = new JButton("Guardar");
+		btnGuardar.setActionCommand("btnGuardarClick");
+		btnGuardar.addActionListener(this);
 		btnGuardar.setBounds(321, 236, 117, 25);
 		contentPane.add(btnGuardar);
 	}
+	
+	// #endregion
+
+	// #region Gestión de eventos
+	
+	public void actionPerformed(ActionEvent e) {
+		if (e.getActionCommand().equals("btnGuardarClick"))
+			btnGuardar_click(e);
+	}
+	
+	private void btnGuardar_click(ActionEvent e) {
+		System.out.println("2");
+		this.nota.setTitulo(txtTitulo.getText());
+		System.out.println("3");
+		this.nota.setDescripcion(txtDescripcion.getText());
+		System.out.println("4");
+		
+		try {
+			System.out.println("5");
+			this.nota.save();
+			System.out.println("6");
+		}
+		catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+
+	// #endregion
+	
 }
