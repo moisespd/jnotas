@@ -9,7 +9,7 @@ import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 
 
-public class FrmNota extends JFrame {
+public class NotaFrm extends JFrame {
 	// ##################################################################################
 	// ##################################################################################
 	// ##################################################################################
@@ -60,7 +60,7 @@ public class FrmNota extends JFrame {
 	// ##################################################################################
 	// ##################################################################################
 
-	public FrmNota() {
+	public NotaFrm() {
 
 		setTitle("Nota");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
