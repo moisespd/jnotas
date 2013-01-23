@@ -17,7 +17,6 @@ public class NotaTest {
 		nota.setPrioridad(nota.getId());
 		try {
 			nota.save();
-			nota2.get(100);
 
 			if (! nota.equals(nota2))
 				fail("testGuardarEnFichero");
