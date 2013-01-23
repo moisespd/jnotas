@@ -7,6 +7,9 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 
 public class NotaFrm extends JFrame {
@@ -149,5 +152,29 @@ public class NotaFrm extends JFrame {
 		txtPrioridad.setColumns(10);
 		txtPrioridad.setBounds(176, 199, 262, 19);
 		contentPane.add(txtPrioridad);
+		
+		JButton btnGuardar = new JButton("Guardar");
+		btnGuardar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				System.out.println("1");
+				Nota n = new Nota();
+				System.out.println("2");
+				n.setTitulo(txtTitulo.getText());
+				System.out.println("3");
+				n.setDescripcion(txtDescripcion.getText());
+				System.out.println("4");
+				
+				try {
+					System.out.println("5");
+					n.save();
+					System.out.println("6");
+				}
+				catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+		btnGuardar.setBounds(321, 236, 117, 25);
+		contentPane.add(btnGuardar);
 	}
 }

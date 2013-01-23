@@ -1,7 +1,6 @@
 // #region Imports
 
 import java.util.Date;
-import java.io.IOException;
 import java.sql.*;
 
 // #endregion
@@ -137,9 +136,17 @@ public class Nota extends BussinessObject {
 	
 	// #region Acceso a datos
 	
-	public void save() throws IOException {
-		String strNota = JNO_P_NotaCreate();
-		NotasDB.save(strNota);
+	public void save() throws Exception {
+		String sql;
+		
+		if (this.isNew) {
+			sql = JNO_P_NotaInsert();
+		}
+		else {
+			sql = JNO_P_NotaUpdate();
+		}
+		
+		DAL.executeNonQuery(sql);
 	}
 	
 	// ----------------------------------------------------------------------------------
@@ -150,6 +157,8 @@ public class Nota extends BussinessObject {
 		cargarRecordset(rs);
 		rs.close();
 		conn.close();
+		
+		this.isNew = false;
 	}
 	// ----------------------------------------------------------------------------------
 	private void cargarRecordset(ResultSet rs) throws SQLException {
@@ -166,17 +175,38 @@ public class Nota extends BussinessObject {
 
 	// #region Procedimientos almacenados
 	
-	private String JNO_P_NotaCreate() {
-		String strNota;
+	private String JNO_P_NotaInsert() {
+		String sql;
 		
-		strNota = new String(
-				String.valueOf(this.id) + ";" +
-				String.valueOf(this.idCarpeta) + ";" + 
-				this.titulo + ";" + 
-				this.descripcion + ";" +
-				String.valueOf(this.prioridad) + ";" +
-				"\n");
-		return strNota;
+		sql = 
+				"insert into Notas (" +
+				"	idCarpeta, " +
+				"	titulo, " +
+				"	descripcion, " +
+				"	prioridad " +
+				") " +
+				"values (" +
+					String.valueOf(this.idCarpeta) + ", " +
+					"'" + this.titulo + "', " +
+					"'" + this.descripcion + "', " +
+					String.valueOf(this.prioridad) + 
+				") ";
+				
+		return sql;
+	}
+	
+	// ----------------------------------------------------------------------------------
+	private String JNO_P_NotaUpdate() {
+		String sql;
+		
+		sql = 
+				"update Notas set " +
+				"	idCarpeta = " + String.valueOf(this.idCarpeta) + ", " +
+				"	titulo = '" + this.titulo + "', " +
+				"	descripcion = '" + this.descripcion + "', " +
+				"	prioridad = '" + this.prioridad + "' " +
+				"where id = " + String.valueOf(this.id);
+		return sql;
 	}
 	
 	// ----------------------------------------------------------------------------------

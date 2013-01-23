@@ -15,15 +15,7 @@ public class NotaTest {
 		nota.setTitulo("Título: Nota 100");
 		nota.setDescripcion("Descripción: Nota 100");
 		nota.setPrioridad(nota.getId());
-		try {
-			nota.save();
-
-			if (! nota.equals(nota2))
-				fail("testGuardarEnFichero");
-		}
-		catch (IOException e) {
-			fail("testGuardarEnFichero: EXCEPCION!!!");
-		}
+		fail("testGuardarEnFichero");
 	}
 
 

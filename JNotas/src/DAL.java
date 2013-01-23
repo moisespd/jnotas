@@ -22,4 +22,11 @@ public class DAL {
 		return rs;
 	}
 	// ----------------------------------------------------------------------------------
+	public static void executeNonQuery(String sql) throws Exception {
+		Connection conn = DAL.devuelveConexionAbierta();
+		Statement s = conn.createStatement();
+		s.executeUpdate(sql);
+		conn.close();
+	}
+	// ----------------------------------------------------------------------------------
 }
