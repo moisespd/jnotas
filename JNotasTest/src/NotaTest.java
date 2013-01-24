@@ -5,6 +5,7 @@ import org.junit.Test;
 
 public class NotaTest {
 
+	// ------------------------------------------------------------------------------------
 	@Test
 	public void testGuardarNotaEnBD() {
 		Nota nota = new Nota();
@@ -25,6 +26,7 @@ public class NotaTest {
 			fail("testSave(): Excepción!!!");
 		}
 	}
+	// ------------------------------------------------------------------------------------
 
 
 }

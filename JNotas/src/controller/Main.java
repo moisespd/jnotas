@@ -1,16 +1,12 @@
 package controller;
-import view.NotaFrm;
-import model.Nota;
+import view.MainFrm;
 
 public class Main {
 	public static void main(String[] args) {
 		try {
-		   Nota n = new Nota();
-		   NotaFrm notafrm = new NotaFrm();
+		   MainFrm mainFrm = new MainFrm();
 		   
-		   n.getLast();
-		   notafrm.setNota(n);
-		   notafrm.setVisible(true);
+		   mainFrm.setVisible(true);
 		} 
 		catch (Exception e) {
 		   e.printStackTrace();

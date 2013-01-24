@@ -3,7 +3,9 @@ package model;
 
 
 import java.util.Date;
+import java.text.SimpleDateFormat;
 import java.sql.*;
+
 
 
 // #endregion
@@ -116,7 +118,11 @@ public class Nota extends BussinessObject {
 		if ((this.id != n.getId()) ||
 			(! this.titulo.equals(n.getTitulo())) ||
 			(! this.descripcion.equals(n.getDescripcion())) ||
-			(this.prioridad != n.getPrioridad()))
+			(this.prioridad != n.getPrioridad()) ||
+			(this.fechaCreacion.compareTo(n.getFechaCreacion()) != 0) || 
+			(this.fechaInicio.compareTo(n.getFechaInicio()) != 0) ||
+			(this.fechaFin.compareTo(n.getFechaFin()) != 0) ||
+			(this.idCarpeta != n.getIdCarpeta()))
 			return false;
 		
 		return true;
@@ -158,11 +164,11 @@ public class Nota extends BussinessObject {
 			rs = DAL.executeQuery(conn, "select LAST_INSERT_ID()");
 			if (rs.next()) {
 				this.id = rs.getInt(1);
-				this.titulo = "Nota" + String.valueOf(this.id);
 			}
 			rs.close();
 		}
 		conn.close();
+		this.isNew = false;
 	}
 	
 	// ----------------------------------------------------------------------------------
@@ -211,19 +217,26 @@ public class Nota extends BussinessObject {
 	
 	private String JNO_P_NotaInsert() {
 		String sql;
+		SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		
 		sql = 
 				"insert into Notas (" +
 				"	idCarpeta, " +
 				"	titulo, " +
 				"	descripcion, " +
-				"	prioridad " +
+				"	prioridad, " +
+				"	fechaCreacion, " +
+				"	fechaInicio, " +
+				"	fechaFin " +
 				") " +
 				"values (" +
 					String.valueOf(this.idCarpeta) + ", " +
 					"'" + this.titulo + "', " +
 					"'" + this.descripcion + "', " +
-					String.valueOf(this.prioridad) + 
+					String.valueOf(this.prioridad) + ", " +
+					"'" + formato.format(fechaCreacion) + "', " +
+					"'" + formato.format(fechaInicio) + "', " +
+					"'" + formato.format(fechaFin) + "' " +
 				"); ";
 				
 		return sql;
@@ -232,13 +245,17 @@ public class Nota extends BussinessObject {
 	// ----------------------------------------------------------------------------------
 	private String JNO_P_NotaUpdate() {
 		String sql;
+		SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		
 		sql = 
 				"update Notas set " +
 				"	idCarpeta = " + String.valueOf(this.idCarpeta) + ", " +
 				"	titulo = '" + this.titulo + "', " +
 				"	descripcion = '" + this.descripcion + "', " +
-				"	prioridad = '" + this.prioridad + "' " +
+				"	prioridad = '" + this.prioridad + "', " +
+				"	fechaCreacion = '" + formato.format(fechaCreacion) + "', " +  
+				"	fechaInicio = '" + formato.format(fechaInicio) + "', " +  
+				"	fechaFin = '" + formato.format(fechaFin) + "' " +  
 				"where id = " + String.valueOf(this.id) + "; ";
 		return sql;
 	}
