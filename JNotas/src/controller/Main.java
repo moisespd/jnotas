@@ -1,3 +1,7 @@
+package controller;
+import view.NotaFrm;
+import model.Nota;
+
 public class Main {
 	public static void main(String[] args) {
 		try {
