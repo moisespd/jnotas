@@ -1,18 +1,29 @@
 import model.Nota;
+import static org.junit.Assert.*;
 
 import org.junit.Test;
 
 public class NotaTest {
 
 	@Test
-	public void testGuardarEnFichero() {
-		// Vaciamos la base de datos de notas
+	public void testGuardarNotaEnBD() {
 		Nota nota = new Nota();
+		Nota nota2 = new Nota();
 		
-		nota.setId(100);
-		nota.setTitulo("Título: Nota 100");
-		nota.setDescripcion("Descripción: Nota 100");
-		nota.setPrioridad(nota.getId());
+		nota.setTitulo("TEST: titulo");
+		nota.setDescripcion("TEST: descripcion");
+		nota.setPrioridad(-99);
+		
+		try {
+			nota.save();
+			nota2.get(nota.getId());
+			
+			if (! nota.equals(nota2))
+				fail("testSave(): al recuperar la nota de BD algunos campos NO se guardaron bien");
+		}
+		catch (Exception e) {
+			fail("testSave(): Excepción!!!");
+		}
 	}
 
 
