@@ -1,6 +1,3 @@
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -10,6 +7,7 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JToolBar;
 
 
 public class NotaFrm extends JFrame implements ActionListener {
@@ -33,6 +31,7 @@ public class NotaFrm extends JFrame implements ActionListener {
 	private JTextField txtFechaFin;
 	private JTextField txtPrioridad;
 	private JButton btnGuardar;
+	private JTextField textBuscar;
 	
 	// #endregion
 	
@@ -47,6 +46,7 @@ public class NotaFrm extends JFrame implements ActionListener {
 		this.txtDescripcion.setText(n.getDescripcion());
 		this.txtPrioridad.setText(String.valueOf(n.getPrioridad()));
 		this.txtFechaCreacion.setText(String.valueOf(n.getFechaCreacion().toString()));
+		this.repaint();
 	}
 	
 	// #endregion
@@ -57,7 +57,7 @@ public class NotaFrm extends JFrame implements ActionListener {
 
 		setTitle("Nota");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 462, 342);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -65,89 +65,114 @@ public class NotaFrm extends JFrame implements ActionListener {
 		
 		JLabel lblId = new JLabel("id:");
 		lblId.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblId.setBounds(12, 12, 146, 15);
+		lblId.setBounds(24, 54, 146, 15);
 		contentPane.add(lblId);
 		
 		JLabel lblIdcarpeta = new JLabel("idCarpeta:");
 		lblIdcarpeta.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblIdcarpeta.setBounds(12, 39, 146, 15);
+		lblIdcarpeta.setBounds(24, 81, 146, 15);
 		contentPane.add(lblIdcarpeta);
 		
 		JLabel lblNewLabel = new JLabel("Título:");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNewLabel.setBounds(12, 66, 146, 15);
+		lblNewLabel.setBounds(24, 108, 146, 15);
 		contentPane.add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("Descripción:");
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNewLabel_1.setBounds(12, 93, 146, 15);
+		lblNewLabel_1.setBounds(24, 135, 146, 15);
 		contentPane.add(lblNewLabel_1);
 		
 		JLabel lblFechaDeCreacin = new JLabel("Fecha de creación:");
 		lblFechaDeCreacin.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblFechaDeCreacin.setBounds(12, 120, 146, 15);
+		lblFechaDeCreacin.setBounds(24, 162, 146, 15);
 		contentPane.add(lblFechaDeCreacin);
 		
 		JLabel lblFechaDeInicio = new JLabel("Fecha de inicio:");
 		lblFechaDeInicio.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblFechaDeInicio.setBounds(12, 147, 146, 15);
+		lblFechaDeInicio.setBounds(24, 189, 146, 15);
 		contentPane.add(lblFechaDeInicio);
 		
 		JLabel lblFechaDeFinalizacin = new JLabel("Fecha de fin:");
 		lblFechaDeFinalizacin.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblFechaDeFinalizacin.setBounds(12, 174, 146, 15);
+		lblFechaDeFinalizacin.setBounds(24, 216, 146, 15);
 		contentPane.add(lblFechaDeFinalizacin);
 		
 		JLabel lblPrioridad = new JLabel("Prioridad:");
 		lblPrioridad.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblPrioridad.setBounds(12, 201, 146, 15);
+		lblPrioridad.setBounds(24, 243, 146, 15);
 		contentPane.add(lblPrioridad);
 		
 		txtId = new JTextField();
-		txtId.setBounds(176, 12, 262, 19);
+		txtId.setEditable(false);
+		txtId.setBounds(188, 54, 262, 19);
 		contentPane.add(txtId);
 		txtId.setColumns(10);
 		
 		txtIdCarpeta = new JTextField();
 		txtIdCarpeta.setColumns(10);
-		txtIdCarpeta.setBounds(176, 37, 262, 19);
+		txtIdCarpeta.setBounds(188, 79, 262, 19);
 		contentPane.add(txtIdCarpeta);
 		
 		txtTitulo = new JTextField();
 		txtTitulo.setColumns(10);
-		txtTitulo.setBounds(176, 64, 262, 19);
+		txtTitulo.setBounds(188, 106, 262, 19);
 		contentPane.add(txtTitulo);
 		
 		txtDescripcion = new JTextField();
 		txtDescripcion.setColumns(10);
-		txtDescripcion.setBounds(176, 91, 262, 19);
+		txtDescripcion.setBounds(188, 133, 262, 19);
 		contentPane.add(txtDescripcion);
 		
 		txtFechaCreacion = new JTextField();
 		txtFechaCreacion.setColumns(10);
-		txtFechaCreacion.setBounds(176, 118, 262, 19);
+		txtFechaCreacion.setBounds(188, 160, 262, 19);
 		contentPane.add(txtFechaCreacion);
 		
 		txtFechaInicio = new JTextField();
 		txtFechaInicio.setColumns(10);
-		txtFechaInicio.setBounds(176, 145, 262, 19);
+		txtFechaInicio.setBounds(188, 187, 262, 19);
 		contentPane.add(txtFechaInicio);
 		
 		txtFechaFin = new JTextField();
 		txtFechaFin.setColumns(10);
-		txtFechaFin.setBounds(176, 172, 262, 19);
+		txtFechaFin.setBounds(188, 214, 262, 19);
 		contentPane.add(txtFechaFin);
 		
 		txtPrioridad = new JTextField();
 		txtPrioridad.setColumns(10);
-		txtPrioridad.setBounds(176, 199, 262, 19);
+		txtPrioridad.setBounds(188, 241, 262, 19);
 		contentPane.add(txtPrioridad);
 
 		btnGuardar = new JButton("Guardar");
-		btnGuardar.setActionCommand("btnGuardarClick");
+		btnGuardar.setActionCommand("btnGuardar_click");
 		btnGuardar.addActionListener(this);
-		btnGuardar.setBounds(321, 236, 117, 25);
+		btnGuardar.setBounds(333, 278, 117, 25);
 		contentPane.add(btnGuardar);
+		
+		JToolBar toolBar = new JToolBar();
+		toolBar.setFloatable(false);
+		toolBar.setBounds(6, 6, 448, 32);
+		contentPane.add(toolBar);
+		
+		JButton btnNuevo = new JButton("Nuevo");
+		btnNuevo.setActionCommand("btnNuevo_click");
+		btnNuevo.addActionListener(this);
+		toolBar.add(btnNuevo);
+		
+		JButton btnEliminar = new JButton("Eliminar");
+		btnEliminar.setActionCommand("btnEliminar_click");
+		btnEliminar.addActionListener(this);
+		toolBar.add(btnEliminar);
+		
+		textBuscar = new JTextField();
+		toolBar.add(textBuscar);
+		textBuscar.setColumns(10);
+		
+		JButton btnBuscar = new JButton("Buscar");
+		btnBuscar.addActionListener(this);
+		btnBuscar.setActionCommand("btnBuscar_click");
+		toolBar.add(btnBuscar);
 	}
 	
 	// #endregion
@@ -155,27 +180,67 @@ public class NotaFrm extends JFrame implements ActionListener {
 	// #region Gestión de eventos
 	
 	public void actionPerformed(ActionEvent e) {
-		if (e.getActionCommand().equals("btnGuardarClick"))
-			btnGuardar_click(e);
+		switch (e.getActionCommand()) {
+			case "btnGuardar_click":
+				btnGuardar_click(e);
+				break;
+			case "btnNuevo_click":
+				btnNuevo_click(e);
+				break;
+			case "btnEliminar_click":
+				btnEliminar_click(e);
+				break;
+			case "btnBuscar_click":
+				btnBuscar_click(e);
+				break;
+		}
 	}
 	
+	// ------------------------------------------------------------------------------
+	private void btnNuevo_click(ActionEvent e) {
+		this.nota = new Nota();
+		try {
+			this.nota.save();
+		}
+		catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		this.setNota(nota);
+	}
+	// ------------------------------------------------------------------------------
+	private void btnEliminar_click(ActionEvent e) {
+		try {
+			this.nota.delete();
+			this.nota.getLast();
+			this.setNota(nota);
+		}
+		catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}		
+	// ------------------------------------------------------------------------------
+	private void btnBuscar_click(ActionEvent e) {
+		int id = Integer.parseInt(textBuscar.getText());
+		try {
+			nota.get(id);
+			this.setNota(nota);
+		}
+		catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		
+	}
+	// ------------------------------------------------------------------------------
 	private void btnGuardar_click(ActionEvent e) {
-		System.out.println("2");
 		this.nota.setTitulo(txtTitulo.getText());
-		System.out.println("3");
 		this.nota.setDescripcion(txtDescripcion.getText());
-		System.out.println("4");
 		
 		try {
-			System.out.println("5");
 			this.nota.save();
-			System.out.println("6");
 		}
 		catch (Exception ex) {
 			ex.printStackTrace();
 		}
 	}
-
-	// #endregion
-	
+	// ------------------------------------------------------------------------------
 }

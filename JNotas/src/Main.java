@@ -4,7 +4,7 @@ public class Main {
 		   Nota n = new Nota();
 		   NotaFrm notafrm = new NotaFrm();
 		   
-		   n.get(3);
+		   n.getLast();
 		   notafrm.setNota(n);
 		   notafrm.setVisible(true);
 		} 

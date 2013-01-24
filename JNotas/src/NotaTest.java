@@ -7,7 +7,6 @@ public class NotaTest {
 	@Test
 	public void testGuardarEnFichero() {
 		// Vaciamos la base de datos de notas
-		NotasDB.purge();
 		Nota nota = new Nota();
 		Nota nota2 = new Nota();
 		

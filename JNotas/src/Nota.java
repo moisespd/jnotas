@@ -84,13 +84,13 @@ public class Nota extends BussinessObject {
 
 	public Nota() {
 		super();
-		this.id = NotasDB.newId();
+		this.id = -1;
 		this.idCarpeta = -1;
 		this.fechaCreacion = new Date();
 		this.fechaInicio = new Date();
 		this.fechaFin = new Date();
-		this.titulo = new String("Nueva nota (" + String.valueOf(this.id) + ")");
-		this.descripcion = new String("");
+		this.titulo = new String();
+		this.descripcion = new String();
 	}
 	// ----------------------------------------------------------------------------------
 	public Nota(int idCarpeta) {
@@ -138,6 +138,8 @@ public class Nota extends BussinessObject {
 	
 	public void save() throws Exception {
 		String sql;
+		ResultSet rs;
+		Connection conn;
 		
 		if (this.isNew) {
 			sql = JNO_P_NotaInsert();
@@ -146,9 +148,38 @@ public class Nota extends BussinessObject {
 			sql = JNO_P_NotaUpdate();
 		}
 		
-		DAL.executeNonQuery(sql);
+		conn = DAL.devuelveConexionAbierta();
+		DAL.executeNonQuery(conn, sql);
+		
+		if (this.isNew) {
+			rs = DAL.executeQuery(conn, "select LAST_INSERT_ID()");
+			if (rs.next()) {
+				this.id = rs.getInt(1);
+				this.titulo = "Nota" + String.valueOf(this.id);
+			}
+			rs.close();
+		}
+		conn.close();
 	}
 	
+	// ----------------------------------------------------------------------------------
+	public void delete() throws Exception {
+		String sql;
+		
+		sql = JNO_P_NotaDelete();
+		DAL.executeNonQuery(sql);
+	}
+	// ----------------------------------------------------------------------------------
+	public void getLast() throws Exception {
+		Connection conn = DAL.devuelveConexionAbierta();
+		String sql = JNO_P_NotaGetLast();
+		ResultSet rs = DAL.executeQuery(conn, sql);
+		cargarRecordset(rs);
+		rs.close();
+		conn.close();
+		
+		this.isNew = false;
+	}		
 	// ----------------------------------------------------------------------------------
 	public void get(int id) throws Exception {
 		Connection conn = DAL.devuelveConexionAbierta();
@@ -190,7 +221,7 @@ public class Nota extends BussinessObject {
 					"'" + this.titulo + "', " +
 					"'" + this.descripcion + "', " +
 					String.valueOf(this.prioridad) + 
-				") ";
+				"); ";
 				
 		return sql;
 	}
@@ -205,7 +236,7 @@ public class Nota extends BussinessObject {
 				"	titulo = '" + this.titulo + "', " +
 				"	descripcion = '" + this.descripcion + "', " +
 				"	prioridad = '" + this.prioridad + "' " +
-				"where id = " + String.valueOf(this.id);
+				"where id = " + String.valueOf(this.id) + "; ";
 		return sql;
 	}
 	
@@ -221,6 +252,27 @@ public class Nota extends BussinessObject {
 				
 		return sql;
 	}
+	// ----------------------------------------------------------------------------------
+	private String JNO_P_NotaGetLast() {
+		String sql;
+		
+		sql =
+				"select " +
+				"	* " +
+				"from Notas " + 
+				"order by id desc " +
+				"limit 0, 1";
+		
+		return sql;
+	}
+	// ----------------------------------------------------------------------------------
+	private String JNO_P_NotaDelete() {
+		String sql;
+		
+		sql = new String("delete from Notas where id = " + String.valueOf(id));
+		return sql;
+	}
+	// ----------------------------------------------------------------------------------
 	
 	// #endregion
 }
