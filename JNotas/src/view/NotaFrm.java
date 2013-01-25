@@ -11,7 +11,8 @@ import java.awt.event.ActionEvent;
 import javax.swing.JToolBar;
 
 import model.Nota;
-import javax.swing.JSplitPane;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 
 
 public class NotaFrm extends JFrame implements ActionListener {
@@ -36,7 +37,6 @@ public class NotaFrm extends JFrame implements ActionListener {
 	private JTextField txtPrioridad;
 	private JButton btnGuardar;
 	private JTextField textBuscar;
-	private final JSplitPane splitPane = new JSplitPane();
 	
 	// #endregion
 	
@@ -59,13 +59,18 @@ public class NotaFrm extends JFrame implements ActionListener {
 	// #region Constructor
 
 	public NotaFrm() {
+		addComponentListener(new ComponentAdapter() {
+			@Override
+			public void componentResized(ComponentEvent e) {
+			}
+		});
 
 		setTitle("Nota");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 462, 342);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(splitPane);
+		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JLabel lblId = new JLabel("id:");
@@ -178,7 +183,6 @@ public class NotaFrm extends JFrame implements ActionListener {
 		btnBuscar.addActionListener(this);
 		btnBuscar.setActionCommand("btnBuscar_click");
 		toolBar.add(btnBuscar);
-		splitPane.setBounds(113, 270, 234, 45);
 	}
 	
 	// #endregion
@@ -248,4 +252,6 @@ public class NotaFrm extends JFrame implements ActionListener {
 			ex.printStackTrace();
 		}
 	}
+	
+	// #endregion
 }

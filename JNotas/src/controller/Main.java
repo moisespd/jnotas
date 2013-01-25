@@ -1,10 +1,10 @@
 package controller;
-import view.MainFrm;
+import view.ResizeFrm;
 
 public class Main {
 	public static void main(String[] args) {
 		try {
-		   MainFrm mainFrm = new MainFrm();
+		   ResizeFrm mainFrm = new ResizeFrm();
 		   
 		   mainFrm.setVisible(true);
 		} 
