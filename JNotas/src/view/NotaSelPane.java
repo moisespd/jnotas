@@ -5,8 +5,6 @@ import javax.swing.JList;
 import javax.swing.JTextField;
 import java.awt.Color;
 import javax.swing.JButton;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
 
 public class NotaSelPane extends JPanel {
 	

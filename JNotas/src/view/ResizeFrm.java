@@ -5,24 +5,16 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
-import javax.swing.JTextArea;
-import javax.swing.BoxLayout;
-import net.miginfocom.swing.MigLayout;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.factories.FormFactory;
-import com.jgoodies.forms.layout.RowSpec;
 import javax.swing.border.BevelBorder;
-import java.awt.GridLayout;
 
 
 public class ResizeFrm extends JFrame {
 
 	private JPanel contentPane;
+	final static long serialVersionUID = 0;
 
 	public ResizeFrm() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
