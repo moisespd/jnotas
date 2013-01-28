@@ -1,5 +1,9 @@
 package view;
 
+// #region Imports
+
+// #region Objetos de presentación 
+import javax.swing.DefaultListModel;
 import javax.swing.JPanel;
 import javax.swing.JList;
 import javax.swing.JTextField;
@@ -9,13 +13,32 @@ import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 
+// #endregion
+
+// #region Objetos de negocio
+
+import model.NotasList;
+import model.Nota;
+
+// #endregion
+
+// #endregion
+
 public class NotaSelPane extends JPanel {
+	
+	// #region Objetos de negocio
+	
+	NotasList list = new NotasList();
+	
+	// #endregion
 	
 	// #region Objetos del diseñador de formularios
 	
 	private static final long serialVersionUID = 0;
 	
 	private JTextField textBuscar;
+	JList<String> listNotas;
+	DefaultListModel<String> datos = new DefaultListModel<String>();
 	
 	// #endregion
 	
@@ -49,7 +72,7 @@ public class NotaSelPane extends JPanel {
 		gbc_btnBuscar.gridy = 0;
 		add(btnBuscar, gbc_btnBuscar);
 		
-		JList listNotas = new JList();
+		listNotas = new JList<String>(datos);
 		GridBagConstraints gbc_listNotas = new GridBagConstraints();
 		gbc_listNotas.weighty = 1.0;
 		gbc_listNotas.weightx = 1.0;
@@ -64,4 +87,26 @@ public class NotaSelPane extends JPanel {
 	
 	// #endregion
 
+	// #region Getters/Setters
+	
+	public void setList(NotasList list) {
+		this.list = list;
+		refresh();
+	}
+	
+	// #endregion
+	
+	// #region Métodos auxiliares
+	
+	private void refresh() {
+		for (int i = 0; i < list.size(); i++) {
+			datos.addElement(list.getNota(i).getTitulo());
+		}
+		
+		listNotas = new JList<String>(datos);
+		this.repaint();
+	}
+	
+	// #endregion
+	
 }

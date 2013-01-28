@@ -201,7 +201,7 @@ public class Nota extends BussinessObject {
 		this.isNew = false;
 	}
 	// ----------------------------------------------------------------------------------
-	private void cargarRecordset(ResultSet rs) throws SQLException {
+	public void cargarRecordset(ResultSet rs) throws SQLException {
 		if (rs.next()) {
 			this.id = rs.getInt("id");
 			this.idCarpeta = rs.getInt("idCarpeta");

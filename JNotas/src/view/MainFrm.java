@@ -8,14 +8,13 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JLabel;
 import javax.swing.JButton;
-import javax.swing.JToolBar;
 import java.awt.BorderLayout;
-import javax.swing.JTextField;
 import java.awt.FlowLayout;
 
 public class MainFrm extends JFrame {
 	
 	// #region Atributos del diseñador de formularios
+
 	private static final long serialVersionUID = 0;
 
 	// #endregion
@@ -98,19 +97,21 @@ public class MainFrm extends JFrame {
 		gridBagLayout.rowHeights = new int[]{0, 251};
 		gridBagLayout.columnWidths = new int[]{197, 0};
 		
-				NotaDataPane notaDataPane = new NotaDataPane();
-				GridBagLayout gridBagLayout_1 = (GridBagLayout) notaDataPane.getLayout();
-				gridBagLayout_1.columnWidths = new int[]{0, 289};
-				
-				JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, notaSelPane, notaDataPane);
-				
-				GridBagConstraints gbc_splitPane = new GridBagConstraints();
-				gbc_splitPane.weighty = 1.0;
-				gbc_splitPane.weightx = 1.0;
-				gbc_splitPane.fill = GridBagConstraints.BOTH;
-				gbc_splitPane.anchor = GridBagConstraints.NORTHWEST;
-				gbc_splitPane.gridx = 0;
-				gbc_splitPane.gridy = 0;
-				panelCenter.add(splitPane, gbc_splitPane);
+		NotaDataPane notaDataPane = new NotaDataPane();
+		GridBagLayout gridBagLayout_1 = (GridBagLayout) notaDataPane.getLayout();
+		gridBagLayout_1.columnWidths = new int[]{0, 289};
+		
+		JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, notaSelPane, notaDataPane);
+		
+		GridBagConstraints gbc_splitPane = new GridBagConstraints();
+		gbc_splitPane.weighty = 1.0;
+		gbc_splitPane.weightx = 1.0;
+		gbc_splitPane.fill = GridBagConstraints.BOTH;
+		gbc_splitPane.anchor = GridBagConstraints.NORTHWEST;
+		gbc_splitPane.gridx = 0;
+		gbc_splitPane.gridy = 0;
+		panelCenter.add(splitPane, gbc_splitPane);
 	}
+	
+	// #endregion
 }
