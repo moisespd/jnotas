@@ -8,7 +8,7 @@ import javax.swing.border.EmptyBorder;
 
 import model.NotasList;
 
-public class NotaSelFrm extends JFrame {
+public class NotaSelFrm extends JFrame implements ButtonClickListener {
 
 	// #region Objetos de negocio
 	
@@ -29,6 +29,7 @@ public class NotaSelFrm extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new NotaSelPane();
+		contentPane.addListener(this);
 		setContentPane(contentPane);
 	}
 
@@ -41,5 +42,12 @@ public class NotaSelFrm extends JFrame {
 		contentPane.setList(this.list);
 	}
 	
+	// #endregion
+	
+	// #region Gestión de eventos
+	
+	public void buttonClicked(ButtonClickEvent e) {
+		System.out.println("Button Clicked: " + e.getText());
+	}
 	// #endregion
 }

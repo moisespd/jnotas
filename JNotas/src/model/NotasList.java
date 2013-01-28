@@ -82,8 +82,20 @@ public class NotasList {
 				
 		return sql;
 	}
-	// #endregion
+
+	private String JNO_P_NotasGet_byText(String text) {
+		String sql;
+		
+		sql =  new String(
+				"select " +
+				"	* " +
+				"from Notas " +
+				"order by titulo ");
+				
+		return sql;
+	}
 	
+	// #endregion
 	
 }
 

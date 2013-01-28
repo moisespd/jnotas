@@ -19,12 +19,16 @@ import java.awt.Insets;
 
 import model.NotasList;
 import model.Nota;
-
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 // #endregion
 
 // #endregion
 
-public class NotaSelPane extends JPanel {
+public class NotaSelPane extends JPanel implements ActionListener {
 	
 	// #region Objetos de negocio
 	
@@ -39,7 +43,8 @@ public class NotaSelPane extends JPanel {
 	private JTextField textBuscar;
 	JList<String> listNotas;
 	DefaultListModel<String> datos = new DefaultListModel<String>();
-	
+	JButton btnBuscar;
+
 	// #endregion
 	
 	// #region Constructor
@@ -63,7 +68,8 @@ public class NotaSelPane extends JPanel {
 		add(textBuscar, gbc_textBuscar);
 		textBuscar.setColumns(10);
 		
-		JButton btnBuscar = new JButton("Buscar");
+		btnBuscar = new JButton("Buscar");
+		btnBuscar.addActionListener(this);
 		GridBagConstraints gbc_btnBuscar = new GridBagConstraints();
 		gbc_btnBuscar.anchor = GridBagConstraints.NORTH;
 		gbc_btnBuscar.fill = GridBagConstraints.HORIZONTAL;
@@ -109,4 +115,33 @@ public class NotaSelPane extends JPanel {
 	
 	// #endregion
 	
+	// #region Gestión de eventos
+
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnBuscar) {
+			_raiseButtonClickEvent(btnBuscar);
+		}
+	}
+	// #endregion
+	
+	// #region Generación de eventos
+
+	private List _listeners = new ArrayList();
+	
+    public synchronized void addListener(ButtonClickListener l ) {
+        _listeners.add(l);
+    }
+    
+    public synchronized void removeListener(ButtonClickListener l ) {
+        _listeners.remove(l);
+    }
+    
+    private synchronized void _raiseButtonClickEvent(Object source) {
+        ButtonClickEvent button = new ButtonClickEvent(source, textBuscar.getText());
+        Iterator listeners = _listeners.iterator();
+        while( listeners.hasNext() ) {
+            ((ButtonClickListener) listeners.next() ).buttonClicked(button);
+        }
+    }
+	// #endregion
 }
