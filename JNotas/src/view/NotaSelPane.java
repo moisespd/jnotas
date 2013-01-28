@@ -79,6 +79,7 @@ public class NotaSelPane extends JPanel implements ActionListener {
 		add(btnBuscar, gbc_btnBuscar);
 		
 		listNotas = new JList<String>(datos);
+		listNotas.setVisibleRowCount(0);
 		GridBagConstraints gbc_listNotas = new GridBagConstraints();
 		gbc_listNotas.weighty = 1.0;
 		gbc_listNotas.weightx = 1.0;
@@ -105,10 +106,11 @@ public class NotaSelPane extends JPanel implements ActionListener {
 	// #region Métodos auxiliares
 	
 	private void refresh() {
+		datos.removeAllElements();
 		for (int i = 0; i < list.size(); i++) {
 			datos.addElement(list.getNota(i).getTitulo());
 		}
-		
+
 		listNotas = new JList<String>(datos);
 		this.repaint();
 	}

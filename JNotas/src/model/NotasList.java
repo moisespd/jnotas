@@ -56,6 +56,15 @@ public class NotasList {
 	}
 	
 	// ---------------------------------------------------------------------------------------------------
+	public void get(String texto) throws Exception {
+		Connection conn = DAL.devuelveConexionAbierta();
+		String sql = JNO_P_NotasGet_byTexto(texto);
+		ResultSet rs = DAL.executeQuery(conn, sql);
+		cargarRecordset(rs);
+		rs.close();
+		conn.close();
+	}
+	// ---------------------------------------------------------------------------------------------------
 	private void cargarRecordset(ResultSet rs) throws Exception {
 		while (rs.next()) {
 			Nota n = new Nota();
@@ -78,22 +87,33 @@ public class NotasList {
 				"select " +
 				"	* " +
 				"from Notas " +
-				"order by titulo ");
+				"order by id ");
 				
 		return sql;
 	}
 
-	private String JNO_P_NotasGet_byText(String text) {
+	// ----------------------------------------------------------------------------
+	private String JNO_P_NotasGet_byTexto(String texto) {
 		String sql;
 		
 		sql =  new String(
 				"select " +
 				"	* " +
 				"from Notas " +
-				"order by titulo ");
+				"where " +
+				"	titulo like '%" + texto + "%' " +
+				"	or descripcion like '%" + texto + "%' ");
+				
+		if (Util.isInteger(texto))
+			sql += 
+				"	or id = " + String.valueOf(texto) + " ";
+				
+		sql +=
+				"order by titulo ";
 				
 		return sql;
 	}
+	// ----------------------------------------------------------------------------
 	
 	// #endregion
 	

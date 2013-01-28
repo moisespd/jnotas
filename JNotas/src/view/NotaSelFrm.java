@@ -47,7 +47,13 @@ public class NotaSelFrm extends JFrame implements ButtonClickListener {
 	// #region Gestión de eventos
 	
 	public void buttonClicked(ButtonClickEvent e) {
-		System.out.println("Button Clicked: " + e.getText());
+		try {
+			list = new NotasList();
+			list.get(e.getText());
+		}
+		catch (Exception ex) {
+		}
+		contentPane.setList(list);
 	}
 	// #endregion
 }

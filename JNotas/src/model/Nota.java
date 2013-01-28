@@ -202,13 +202,11 @@ public class Nota extends BussinessObject {
 	}
 	// ----------------------------------------------------------------------------------
 	public void cargarRecordset(ResultSet rs) throws SQLException {
-		if (rs.next()) {
-			this.id = rs.getInt("id");
-			this.idCarpeta = rs.getInt("idCarpeta");
-			this.titulo = rs.getString("titulo");
-			this.descripcion = rs.getString("descripcion");
-			this.prioridad = rs.getInt("prioridad");
-		}
+		this.id = rs.getInt("id");
+		this.idCarpeta = rs.getInt("idCarpeta");
+		this.titulo = rs.getString("titulo");
+		this.descripcion = rs.getString("descripcion");
+		this.prioridad = rs.getInt("prioridad");
 	}
 	
 	// #endregion
