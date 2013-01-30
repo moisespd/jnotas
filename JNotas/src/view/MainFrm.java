@@ -9,11 +9,15 @@ import java.awt.Insets;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 
+import javax.swing.*;
+import java.awt.*;
+
 import model.NotasList;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import javax.swing.ImageIcon;
+import javax.swing.SwingConstants;
 
 public class MainFrm extends JFrame {
 	
@@ -60,26 +64,33 @@ public class MainFrm extends JFrame {
 		panelTop.add(lblSystemIcon, gbc_lblSystemIcon);
 		
 		JButton btnNuevo = new JButton("Nuevo");
+		Dimension buttonDimension = new Dimension(120, imageHeader.getIconHeight() - 20);
+		btnNuevo.setIcon(new ImageIcon(MainFrm.class.getResource("/images/newFile_32x32.png")));
+		btnNuevo.setPreferredSize(buttonDimension);
 		GridBagConstraints gbc_btnNuevo = new GridBagConstraints();
 		gbc_btnNuevo.anchor = GridBagConstraints.NORTHWEST;
 		gbc_btnNuevo.insets = new Insets(0, 0, 0, 5);
-		gbc_btnNuevo.gridx = 3;
+		gbc_btnNuevo.gridx = 2;
 		gbc_btnNuevo.gridy = 0;
 		panelTop.add(btnNuevo, gbc_btnNuevo);
 		
 		JButton btnEditar = new JButton("Editar");
+		btnEditar.setIcon(new ImageIcon(MainFrm.class.getResource("/images/editFile_32x32.png")));
+		btnEditar.setPreferredSize(buttonDimension);
 		GridBagConstraints gbc_btnEditar = new GridBagConstraints();
 		gbc_btnEditar.anchor = GridBagConstraints.NORTHWEST;
 		gbc_btnEditar.insets = new Insets(0, 0, 0, 5);
-		gbc_btnEditar.gridx = 4;
+		gbc_btnEditar.gridx = 3;
 		gbc_btnEditar.gridy = 0;
 		panelTop.add(btnEditar, gbc_btnEditar);
 		
 		JButton btnBorrar = new JButton("Borrar");
+		btnBorrar.setIcon(new ImageIcon(MainFrm.class.getResource("/images/dropFile_32x32.png")));
+		btnBorrar.setPreferredSize(buttonDimension);
 		GridBagConstraints gbc_btnBorrar = new GridBagConstraints();
 		gbc_btnBorrar.insets = new Insets(0, 0, 0, 5);
 		gbc_btnBorrar.anchor = GridBagConstraints.NORTHWEST;
-		gbc_btnBorrar.gridx = 5;
+		gbc_btnBorrar.gridx = 4;
 		gbc_btnBorrar.gridy = 0;
 		panelTop.add(btnBorrar, gbc_btnBorrar);
 		
