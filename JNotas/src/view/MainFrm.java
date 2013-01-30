@@ -8,14 +8,20 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JLabel;
 import javax.swing.JButton;
+
+import model.NotasList;
+
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import javax.swing.ImageIcon;
 
 public class MainFrm extends JFrame {
 	
 	// #region Atributos del diseñador de formularios
 
 	private static final long serialVersionUID = 0;
+	
+	ImageIcon imageHeader;
 
 	// #endregion
 
@@ -24,7 +30,7 @@ public class MainFrm extends JFrame {
 	public MainFrm() {
 		setTitle("JNotas");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 711, 350);
+		setBounds(100, 100, 911, 350);
 		
 		JPanel contentPane = new JPanel();
 		setContentPane(contentPane);
@@ -42,7 +48,10 @@ public class MainFrm extends JFrame {
 		gbl_panelTop.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panelTop.setLayout(gbl_panelTop);
 		
-		JLabel lblSystemIcon = new JLabel("System Icon");
+		JLabel lblSystemIcon = new JLabel("");
+		imageHeader = new ImageIcon(MainFrm.class.getResource("/images/headerMain.jpg"));
+		lblSystemIcon.setIcon(imageHeader);
+		
 		GridBagConstraints gbc_lblSystemIcon = new GridBagConstraints();
 		gbc_lblSystemIcon.gridwidth = 2;
 		gbc_lblSystemIcon.insets = new Insets(0, 0, 0, 5);
@@ -110,7 +119,20 @@ public class MainFrm extends JFrame {
 		gbc_splitPane.anchor = GridBagConstraints.NORTHWEST;
 		gbc_splitPane.gridx = 0;
 		gbc_splitPane.gridy = 0;
+		
+		splitPane.setDividerLocation(imageHeader.getIconWidth());
+
 		panelCenter.add(splitPane, gbc_splitPane);
+
+		NotasList notas = new NotasList();
+		
+		try {
+			notas.get();
+		}
+		catch (Exception e) {
+		}
+		notaSelPane.setList(notas);
+	
 	}
 	
 	// #endregion
