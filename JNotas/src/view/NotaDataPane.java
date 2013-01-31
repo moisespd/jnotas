@@ -29,6 +29,8 @@ public class NotaDataPane extends JPanel {
 	// #region Constructor
 	
 	public NotaDataPane() {
+		Insets insets = new Insets(5,5,5,5);
+
 		setForeground(Color.LIGHT_GRAY);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{146, 262, 0};
@@ -37,32 +39,32 @@ public class NotaDataPane extends JPanel {
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
 				
-						JLabel lblId = new JLabel("id:");
-						lblId.setHorizontalAlignment(SwingConstants.RIGHT);
-						GridBagConstraints gbc_lblId = new GridBagConstraints();
-						gbc_lblId.anchor = GridBagConstraints.NORTH;
-						gbc_lblId.fill = GridBagConstraints.HORIZONTAL;
-						gbc_lblId.insets = new Insets(0, 0, 5, 5);
-						gbc_lblId.gridx = 0;
-						gbc_lblId.gridy = 0;
-						this.add(lblId, gbc_lblId);
+		JLabel lblId = new JLabel("id:");
+		lblId.setHorizontalAlignment(SwingConstants.RIGHT);
+		GridBagConstraints gbc_lblId = new GridBagConstraints();
+		gbc_lblId.anchor = GridBagConstraints.NORTH;
+		gbc_lblId.fill = GridBagConstraints.HORIZONTAL;
+		gbc_lblId.insets = insets;
+		gbc_lblId.gridx = 0;
+		gbc_lblId.gridy = 0;
+		this.add(lblId, gbc_lblId);
 		
-				txtId = new JTextField();
-				txtId.setEditable(false);
-				GridBagConstraints gbc_txtId = new GridBagConstraints();
-				gbc_txtId.anchor = GridBagConstraints.NORTH;
-				gbc_txtId.fill = GridBagConstraints.HORIZONTAL;
-				gbc_txtId.insets = new Insets(0, 0, 5, 0);
-				gbc_txtId.gridx = 1;
-				gbc_txtId.gridy = 0;
-				this.add(txtId, gbc_txtId);
-				txtId.setColumns(10);
+		txtId = new JTextField();
+		txtId.setEditable(false);
+		GridBagConstraints gbc_txtId = new GridBagConstraints();
+		gbc_txtId.anchor = GridBagConstraints.NORTH;
+		gbc_txtId.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtId.insets = insets;
+		gbc_txtId.gridx = 1;
+		gbc_txtId.gridy = 0;
+		this.add(txtId, gbc_txtId);
+		txtId.setColumns(10);
 		
 		JLabel lblIdcarpeta = new JLabel("idCarpeta:");
 		lblIdcarpeta.setHorizontalAlignment(SwingConstants.RIGHT);
 		GridBagConstraints gbc_lblIdcarpeta = new GridBagConstraints();
 		gbc_lblIdcarpeta.fill = GridBagConstraints.HORIZONTAL;
-		gbc_lblIdcarpeta.insets = new Insets(0, 0, 5, 5);
+		gbc_lblIdcarpeta.insets = insets;
 		gbc_lblIdcarpeta.gridx = 0;
 		gbc_lblIdcarpeta.gridy = 1;
 		this.add(lblIdcarpeta, gbc_lblIdcarpeta);
@@ -72,7 +74,7 @@ public class NotaDataPane extends JPanel {
 		GridBagConstraints gbc_txtIdCarpeta = new GridBagConstraints();
 		gbc_txtIdCarpeta.anchor = GridBagConstraints.NORTH;
 		gbc_txtIdCarpeta.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtIdCarpeta.insets = new Insets(0, 0, 5, 0);
+		gbc_txtIdCarpeta.insets = insets;
 		gbc_txtIdCarpeta.gridx = 1;
 		gbc_txtIdCarpeta.gridy = 1;
 		this.add(txtIdCarpeta, gbc_txtIdCarpeta);
@@ -81,7 +83,7 @@ public class NotaDataPane extends JPanel {
 		lblNewLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
 		gbc_lblNewLabel.fill = GridBagConstraints.HORIZONTAL;
-		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNewLabel.insets = insets;
 		gbc_lblNewLabel.gridx = 0;
 		gbc_lblNewLabel.gridy = 2;
 		this.add(lblNewLabel, gbc_lblNewLabel);
@@ -92,7 +94,7 @@ public class NotaDataPane extends JPanel {
 		gbc_txtTitulo.weightx = 1.0;
 		gbc_txtTitulo.anchor = GridBagConstraints.NORTH;
 		gbc_txtTitulo.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtTitulo.insets = new Insets(0, 0, 5, 0);
+		gbc_txtTitulo.insets = insets;
 		gbc_txtTitulo.gridx = 1;
 		gbc_txtTitulo.gridy = 2;
 		this.add(txtTitulo, gbc_txtTitulo);
@@ -101,7 +103,7 @@ public class NotaDataPane extends JPanel {
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.RIGHT);
 		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
 		gbc_lblNewLabel_1.fill = GridBagConstraints.HORIZONTAL;
-		gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNewLabel_1.insets = insets;
 		gbc_lblNewLabel_1.gridx = 0;
 		gbc_lblNewLabel_1.gridy = 3;
 		this.add(lblNewLabel_1, gbc_lblNewLabel_1);
@@ -111,7 +113,7 @@ public class NotaDataPane extends JPanel {
 		GridBagConstraints gbc_txtDescripcion = new GridBagConstraints();
 		gbc_txtDescripcion.anchor = GridBagConstraints.NORTH;
 		gbc_txtDescripcion.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtDescripcion.insets = new Insets(0, 0, 5, 0);
+		gbc_txtDescripcion.insets = insets;
 		gbc_txtDescripcion.gridx = 1;
 		gbc_txtDescripcion.gridy = 3;
 		this.add(txtDescripcion, gbc_txtDescripcion);
@@ -120,7 +122,7 @@ public class NotaDataPane extends JPanel {
 		lblFechaDeCreacin.setHorizontalAlignment(SwingConstants.RIGHT);
 		GridBagConstraints gbc_lblFechaDeCreacin = new GridBagConstraints();
 		gbc_lblFechaDeCreacin.fill = GridBagConstraints.HORIZONTAL;
-		gbc_lblFechaDeCreacin.insets = new Insets(0, 0, 5, 5);
+		gbc_lblFechaDeCreacin.insets = insets;
 		gbc_lblFechaDeCreacin.gridx = 0;
 		gbc_lblFechaDeCreacin.gridy = 4;
 		this.add(lblFechaDeCreacin, gbc_lblFechaDeCreacin);
@@ -130,7 +132,7 @@ public class NotaDataPane extends JPanel {
 		GridBagConstraints gbc_txtFechaCreacion = new GridBagConstraints();
 		gbc_txtFechaCreacion.anchor = GridBagConstraints.NORTH;
 		gbc_txtFechaCreacion.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtFechaCreacion.insets = new Insets(0, 0, 5, 0);
+		gbc_txtFechaCreacion.insets = insets;
 		gbc_txtFechaCreacion.gridx = 1;
 		gbc_txtFechaCreacion.gridy = 4;
 		this.add(txtFechaCreacion, gbc_txtFechaCreacion);
@@ -139,7 +141,7 @@ public class NotaDataPane extends JPanel {
 		lblFechaDeInicio.setHorizontalAlignment(SwingConstants.RIGHT);
 		GridBagConstraints gbc_lblFechaDeInicio = new GridBagConstraints();
 		gbc_lblFechaDeInicio.fill = GridBagConstraints.HORIZONTAL;
-		gbc_lblFechaDeInicio.insets = new Insets(0, 0, 5, 5);
+		gbc_lblFechaDeInicio.insets = insets;
 		gbc_lblFechaDeInicio.gridx = 0;
 		gbc_lblFechaDeInicio.gridy = 5;
 		this.add(lblFechaDeInicio, gbc_lblFechaDeInicio);
@@ -149,7 +151,7 @@ public class NotaDataPane extends JPanel {
 		GridBagConstraints gbc_txtFechaInicio = new GridBagConstraints();
 		gbc_txtFechaInicio.anchor = GridBagConstraints.NORTH;
 		gbc_txtFechaInicio.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtFechaInicio.insets = new Insets(0, 0, 5, 0);
+		gbc_txtFechaInicio.insets = insets;
 		gbc_txtFechaInicio.gridx = 1;
 		gbc_txtFechaInicio.gridy = 5;
 		this.add(txtFechaInicio, gbc_txtFechaInicio);
@@ -158,7 +160,7 @@ public class NotaDataPane extends JPanel {
 		lblFechaDeFinalizacin.setHorizontalAlignment(SwingConstants.RIGHT);
 		GridBagConstraints gbc_lblFechaDeFinalizacin = new GridBagConstraints();
 		gbc_lblFechaDeFinalizacin.fill = GridBagConstraints.HORIZONTAL;
-		gbc_lblFechaDeFinalizacin.insets = new Insets(0, 0, 5, 5);
+		gbc_lblFechaDeFinalizacin.insets = insets;
 		gbc_lblFechaDeFinalizacin.gridx = 0;
 		gbc_lblFechaDeFinalizacin.gridy = 6;
 		this.add(lblFechaDeFinalizacin, gbc_lblFechaDeFinalizacin);
@@ -168,7 +170,7 @@ public class NotaDataPane extends JPanel {
 		GridBagConstraints gbc_txtFechaFin = new GridBagConstraints();
 		gbc_txtFechaFin.anchor = GridBagConstraints.NORTH;
 		gbc_txtFechaFin.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtFechaFin.insets = new Insets(0, 0, 5, 0);
+		gbc_txtFechaFin.insets = insets;
 		gbc_txtFechaFin.gridx = 1;
 		gbc_txtFechaFin.gridy = 6;
 		this.add(txtFechaFin, gbc_txtFechaFin);
@@ -177,7 +179,7 @@ public class NotaDataPane extends JPanel {
 		lblPrioridad.setHorizontalAlignment(SwingConstants.RIGHT);
 		GridBagConstraints gbc_lblPrioridad = new GridBagConstraints();
 		gbc_lblPrioridad.fill = GridBagConstraints.HORIZONTAL;
-		gbc_lblPrioridad.insets = new Insets(0, 0, 0, 5);
+		gbc_lblPrioridad.insets = insets;
 		gbc_lblPrioridad.gridx = 0;
 		gbc_lblPrioridad.gridy = 7;
 		this.add(lblPrioridad, gbc_lblPrioridad);
@@ -187,6 +189,7 @@ public class NotaDataPane extends JPanel {
 		GridBagConstraints gbc_txtPrioridad = new GridBagConstraints();
 		gbc_txtPrioridad.anchor = GridBagConstraints.NORTH;
 		gbc_txtPrioridad.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtPrioridad.insets = insets;
 		gbc_txtPrioridad.gridx = 1;
 		gbc_txtPrioridad.gridy = 7;
 		this.add(txtPrioridad, gbc_txtPrioridad);

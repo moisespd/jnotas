@@ -37,7 +37,7 @@ public class MainFrm extends JFrame {
 	public MainFrm() {
 		setTitle("JNotas");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 911, 350);
+		setBounds(100, 100, 911, 393);
 		
 		JPanel contentPane = new JPanel();
 		setContentPane(contentPane);
@@ -76,7 +76,7 @@ public class MainFrm extends JFrame {
 		btnNuevo.setPreferredSize(buttonDimension);
 		GridBagConstraints gbc_btnNuevo = new GridBagConstraints();
 		gbc_btnNuevo.anchor = GridBagConstraints.NORTHWEST;
-		gbc_btnNuevo.insets = new Insets(0, 0, 0, 5);
+		gbc_btnNuevo.insets = new Insets(10, 5, 5, 0);
 		gbc_btnNuevo.gridx = 2;
 		gbc_btnNuevo.gridy = 0;
 		panelTop.add(btnNuevo, gbc_btnNuevo);
@@ -89,7 +89,7 @@ public class MainFrm extends JFrame {
 		btnEditar.setPreferredSize(buttonDimension);
 		GridBagConstraints gbc_btnEditar = new GridBagConstraints();
 		gbc_btnEditar.anchor = GridBagConstraints.NORTHWEST;
-		gbc_btnEditar.insets = new Insets(0, 0, 0, 5);
+		gbc_btnEditar.insets = new Insets(10, 5, 5, 0);
 		gbc_btnEditar.gridx = 3;
 		gbc_btnEditar.gridy = 0;
 		panelTop.add(btnEditar, gbc_btnEditar);
@@ -101,7 +101,7 @@ public class MainFrm extends JFrame {
 		btnBorrar.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnBorrar.setPreferredSize(buttonDimension);
 		GridBagConstraints gbc_btnBorrar = new GridBagConstraints();
-		gbc_btnBorrar.insets = new Insets(0, 0, 0, 5);
+		gbc_btnBorrar.insets = new Insets(10, 5, 5, 0);
 		gbc_btnBorrar.anchor = GridBagConstraints.NORTHWEST;
 		gbc_btnBorrar.gridx = 4;
 		gbc_btnBorrar.gridy = 0;
