@@ -18,6 +18,9 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.EtchedBorder;
 
 public class MainFrm extends JFrame {
 	
@@ -44,16 +47,18 @@ public class MainFrm extends JFrame {
 		// panelTop
 		
 		JPanel panelTop = new JPanel();
+		panelTop.setBorder(new CompoundBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null), new BevelBorder(BevelBorder.LOWERED, null, null, null, null)));
 		contentPane.add(panelTop, BorderLayout.NORTH);
 		GridBagLayout gbl_panelTop = new GridBagLayout();
 		gbl_panelTop.columnWidths = new int[]{110, 85, 78, 76, 79, 0, 0, 0, 0};
-		gbl_panelTop.rowHeights = new int[]{25, 0};
+		gbl_panelTop.rowHeights = new int[] {6};
 		gbl_panelTop.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_panelTop.rowWeights = new double[]{0.0, Double.MIN_VALUE};
+		gbl_panelTop.rowWeights = new double[]{0.0};
 		panelTop.setLayout(gbl_panelTop);
+		imageHeader = new ImageIcon(MainFrm.class.getResource("/images/headerMain.jpg"));
+		Dimension buttonDimension = new Dimension(100, 60);
 		
 		JLabel lblSystemIcon = new JLabel("");
-		imageHeader = new ImageIcon(MainFrm.class.getResource("/images/headerMain.jpg"));
 		lblSystemIcon.setIcon(imageHeader);
 		
 		GridBagConstraints gbc_lblSystemIcon = new GridBagConstraints();
@@ -64,7 +69,9 @@ public class MainFrm extends JFrame {
 		panelTop.add(lblSystemIcon, gbc_lblSystemIcon);
 		
 		JButton btnNuevo = new JButton("Nuevo");
-		Dimension buttonDimension = new Dimension(120, imageHeader.getIconHeight() - 20);
+		btnNuevo.setMargin(new Insets(0, 0, 0, 0));
+		btnNuevo.setVerticalTextPosition(SwingConstants.BOTTOM);
+		btnNuevo.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnNuevo.setIcon(new ImageIcon(MainFrm.class.getResource("/images/newFile_32x32.png")));
 		btnNuevo.setPreferredSize(buttonDimension);
 		GridBagConstraints gbc_btnNuevo = new GridBagConstraints();
@@ -76,6 +83,9 @@ public class MainFrm extends JFrame {
 		
 		JButton btnEditar = new JButton("Editar");
 		btnEditar.setIcon(new ImageIcon(MainFrm.class.getResource("/images/editFile_32x32.png")));
+		btnEditar.setMargin(new Insets(0, 0, 0, 0));
+		btnEditar.setVerticalTextPosition(SwingConstants.BOTTOM);
+		btnEditar.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnEditar.setPreferredSize(buttonDimension);
 		GridBagConstraints gbc_btnEditar = new GridBagConstraints();
 		gbc_btnEditar.anchor = GridBagConstraints.NORTHWEST;
@@ -86,6 +96,9 @@ public class MainFrm extends JFrame {
 		
 		JButton btnBorrar = new JButton("Borrar");
 		btnBorrar.setIcon(new ImageIcon(MainFrm.class.getResource("/images/dropFile_32x32.png")));
+		btnBorrar.setMargin(new Insets(0, 0, 0, 0));
+		btnBorrar.setVerticalTextPosition(SwingConstants.BOTTOM);
+		btnBorrar.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnBorrar.setPreferredSize(buttonDimension);
 		GridBagConstraints gbc_btnBorrar = new GridBagConstraints();
 		gbc_btnBorrar.insets = new Insets(0, 0, 0, 5);
