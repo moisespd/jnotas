@@ -12,8 +12,6 @@ import javax.swing.JButton;
 import javax.swing.*;
 import java.awt.*;
 
-import model.NotasList;
-
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import javax.swing.ImageIcon;
@@ -23,12 +21,20 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.border.EtchedBorder;
 
 public class MainFrm extends JFrame {
+
+	// #region Vistas incluidas
+	
+	private NotaSelPane notaSelPane;
+	NotaDataPane notaDataPane = new NotaDataPane();
+	
+	// #endregion
 	
 	// #region Atributos del diseñador de formularios
 
 	private static final long serialVersionUID = 0;
 	
 	ImageIcon imageHeader;
+	JPanel panelCenter = new JPanel();
 
 	// #endregion
 
@@ -116,7 +122,6 @@ public class MainFrm extends JFrame {
 		JLabel lblStatusBar = new JLabel("Status Bar");
 		panelButton.add(lblStatusBar);
 		
-		JPanel panelCenter = new JPanel();
 		contentPane.add(panelCenter, BorderLayout.CENTER);
 		GridBagLayout gbl_panelCenter = new GridBagLayout();
 		gbl_panelCenter.columnWidths = new int[]{718, 0};
@@ -125,15 +130,22 @@ public class MainFrm extends JFrame {
 		gbl_panelCenter.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panelCenter.setLayout(gbl_panelCenter);
 		
-		NotaSelPane notaSelPane = new NotaSelPane();
-		GridBagLayout gridBagLayout = (GridBagLayout) notaSelPane.getLayout();
-		gridBagLayout.rowHeights = new int[]{0, 251};
-		gridBagLayout.columnWidths = new int[]{197, 0};
 		
-		NotaDataPane notaDataPane = new NotaDataPane();
-		GridBagLayout gridBagLayout_1 = (GridBagLayout) notaDataPane.getLayout();
-		gridBagLayout_1.columnWidths = new int[]{0, 289};
+	}
+	
+	// #endregion
+	
+	// #region Getters/Setters
+
+	public void setNotaSelPane(NotaSelPane panel) {
+		this.notaSelPane = panel;
+	}
 		
+	// #endregion
+
+	// #region Sobrecarga de View
+	
+	public void mostrar(boolean show) {
 		JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, notaSelPane, notaDataPane);
 		
 		GridBagConstraints gbc_splitPane = new GridBagConstraints();
@@ -147,17 +159,11 @@ public class MainFrm extends JFrame {
 		splitPane.setDividerLocation(imageHeader.getIconWidth());
 
 		panelCenter.add(splitPane, gbc_splitPane);
-
-		NotasList notas = new NotasList();
 		
-		try {
-			notas.get();
-		}
-		catch (Exception e) {
-		}
-		notaSelPane.setList(notas);
+		this.setVisible(show);
 	
 	}
 	
 	// #endregion
+	
 }

@@ -24,6 +24,7 @@ import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import javax.swing.border.LineBorder;
 // #endregion
 
 // #endregion
@@ -62,7 +63,7 @@ public class NotaSelPane extends JPanel implements ActionListener {
 		GridBagConstraints gbc_textBuscar = new GridBagConstraints();
 		gbc_textBuscar.weightx = 1.0;
 		gbc_textBuscar.fill = GridBagConstraints.BOTH;
-		gbc_textBuscar.insets = new Insets(0, 0, 5, 5);
+		gbc_textBuscar.insets = new Insets(5, 5, 5, 5);
 		gbc_textBuscar.gridx = 0;
 		gbc_textBuscar.gridy = 0;
 		add(textBuscar, gbc_textBuscar);
@@ -73,14 +74,16 @@ public class NotaSelPane extends JPanel implements ActionListener {
 		GridBagConstraints gbc_btnBuscar = new GridBagConstraints();
 		gbc_btnBuscar.anchor = GridBagConstraints.NORTH;
 		gbc_btnBuscar.fill = GridBagConstraints.HORIZONTAL;
-		gbc_btnBuscar.insets = new Insets(0, 0, 5, 0);
+		gbc_btnBuscar.insets = new Insets(5, 5, 5, 5);
 		gbc_btnBuscar.gridx = 1;
 		gbc_btnBuscar.gridy = 0;
 		add(btnBuscar, gbc_btnBuscar);
 		
 		listNotas = new JList<String>(datos);
+		listNotas.setBorder(new LineBorder(new Color(0, 0, 0)));
 		listNotas.setVisibleRowCount(0);
 		GridBagConstraints gbc_listNotas = new GridBagConstraints();
+		gbc_listNotas.insets = new Insets(5, 5, 5, 5);
 		gbc_listNotas.weighty = 1.0;
 		gbc_listNotas.weightx = 1.0;
 		gbc_listNotas.anchor = GridBagConstraints.NORTHEAST;
