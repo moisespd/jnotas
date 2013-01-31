@@ -9,8 +9,17 @@ import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 
+import model.Nota;
+import model.Util;
+
 public class NotaDataPane extends JPanel {
 
+	// #region Objetos de negocio
+	
+	Nota nota = new Nota();
+	
+	// #endregion
+	
 	// #region Objetos del diseñador de formularios
 	
 	private static final long serialVersionUID = 0;
@@ -197,5 +206,29 @@ public class NotaDataPane extends JPanel {
 	}
 
 	// #endregion
+
+	// #region Métodos auxiliares
+	
+	public void refresh() {
+		this.txtId.setText(String.valueOf(nota.getId()));
+		this.txtTitulo.setText(nota.getTitulo());
+		this.txtDescripcion.setText(nota.getDescripcion());
+		this.txtIdCarpeta.setText(String.valueOf(nota.getIdCarpeta()));
+		this.txtFechaCreacion.setText(Util.datetime2String(nota.getFechaCreacion()));
+		this.txtFechaInicio.setText(Util.datetime2String(nota.getFechaInicio()));
+		this.txtFechaFin.setText(Util.datetime2String(nota.getFechaFin()));
+	}
+	
+	// #endregion
+	
+	// #region setters/getters
+	
+	public void setNota(Nota nota) {
+		this.nota = nota;
+		refresh();
+	}
+	
+	// #endregion
+
 	
 }

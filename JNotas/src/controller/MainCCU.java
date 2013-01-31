@@ -19,7 +19,7 @@ public class MainCCU {
 	// #region Controladoras de inclusión
 	
 	SeleccionarNotaCCU seleccionarNotaCCU = new SeleccionarNotaCCU();
-//	NotaDataCCU notaDataCCU = NotaDataCCU();
+	MostrarNotaCCU mostrarNotaCCU = new MostrarNotaCCU(1);
 	
 	// #endregion
 	
@@ -28,7 +28,9 @@ public class MainCCU {
 	public void iniciar() {
 		try {
 			seleccionarNotaCCU.iniciar();
+			mostrarNotaCCU.iniciar();
 			miVista.setNotaSelPane(seleccionarNotaCCU.getVista());
+			miVista.setNotaDataPane(mostrarNotaCCU.getVista());
 			miVista.mostrar(true);
 		} 
 		catch (Exception e) {

@@ -1,4 +1,5 @@
 package model;
+
 // #region Imports
 
 
@@ -194,7 +195,9 @@ public class Nota extends BussinessObject {
 		Connection conn = DAL.devuelveConexionAbierta();
 		String sql = JNO_P_NotaGet(id);
 		ResultSet rs = DAL.executeQuery(conn, sql);
-		cargarRecordset(rs);
+		if (rs.next()) {
+			cargarRecordset(rs);
+		}
 		rs.close();
 		conn.close();
 		

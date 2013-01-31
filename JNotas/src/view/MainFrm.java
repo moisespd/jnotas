@@ -24,7 +24,7 @@ public class MainFrm extends JFrame {
 
 	// #region Vistas incluidas
 	
-	private NotaSelPane notaSelPane;
+	private NotaSelPane notaSelPane = new NotaSelPane();
 	NotaDataPane notaDataPane = new NotaDataPane();
 	
 	// #endregion
@@ -141,6 +141,9 @@ public class MainFrm extends JFrame {
 		this.notaSelPane = panel;
 	}
 		
+	public void setNotaDataPane(NotaDataPane panel) {
+		this.notaDataPane = panel;
+	}
 	// #endregion
 
 	// #region Sobrecarga de View
