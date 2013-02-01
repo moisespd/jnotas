@@ -1,11 +1,15 @@
 package controller;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 import model.NotasList;
-import view.ButtonClickEvent;
-import view.ButtonClickListener;
+import view.NotaSelPaneEvent;
+import view.NotaSelPaneListener;
 import view.NotaSelPane;
 
-public class SeleccionarNotaCCU implements ButtonClickListener {
+public class SeleccionarNotaCCU implements NotaSelPaneListener {
 
 	// #region Objetos de negocio
 
@@ -40,14 +44,16 @@ public class SeleccionarNotaCCU implements ButtonClickListener {
 		}
 		catch (Exception e) {
 		}
+		
 		miVista.setVisible(true);
+		miVista.seleccionarFirstNota();
 	}
 	
 	// #endregion
 
-	// #region Gestión de eventos
+	// #region Gestión de eventos del panel
 	
-	public void buttonClicked(ButtonClickEvent e) {
+	public void buttonBuscarClick(NotaSelPaneEvent e) {
 		try {
 			notas = new NotasList();
 			notas.get(e.getText());
@@ -57,6 +63,32 @@ public class SeleccionarNotaCCU implements ButtonClickListener {
 		miVista.setList(notas);
 	}
 	
+	public void notaClick(NotaSelPaneEvent e) {
+		_raiseNotaClickEvent(e.getIdNota());
+	}
+	// #endregion
+
+	// #region Generación de eventos
+
+	private List _listeners = new ArrayList();
+	
+    public synchronized void addListener(SeleccionarNotaCCUListener l ) {
+        _listeners.add(l);
+    }
+    
+    public synchronized void removeListener(SeleccionarNotaCCUListener l ) {
+        _listeners.remove(l);
+    }
+    
+    
+    private synchronized void _raiseNotaClickEvent(int idNota) {
+        NotaSelPaneEvent ev = new NotaSelPaneEvent(this, idNota);
+        Iterator listeners = _listeners.iterator();
+        while( listeners.hasNext() ) {
+            ((SeleccionarNotaCCUListener) listeners.next() ).notaClick(ev);
+        }
+    }
+    
 	// #endregion
 	
 }

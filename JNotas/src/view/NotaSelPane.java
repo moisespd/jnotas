@@ -18,47 +18,50 @@ import java.awt.Insets;
 // #region Objetos de negocio
 
 import model.NotasList;
-import model.Nota;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import javax.swing.border.LineBorder;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.ListSelectionModel;
 // #endregion
 
 // #endregion
 
 public class NotaSelPane extends JPanel implements ActionListener {
-	
+
 	// #region Objetos de negocio
-	
+
 	NotasList list = new NotasList();
-	
+
 	// #endregion
-	
+
 	// #region Objetos del diseñador de formularios
-	
+
 	private static final long serialVersionUID = 0;
-	
+
 	private JTextField textBuscar;
 	JList<String> listNotas;
 	DefaultListModel<String> datos = new DefaultListModel<String>();
 	JButton btnBuscar;
 
 	// #endregion
-	
+
 	// #region Constructor
 
 	public NotaSelPane() {
 		setForeground(Color.LIGHT_GRAY);
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{315, 99, 0};
-		gridBagLayout.rowHeights = new int[]{25, 241, 0};
-		gridBagLayout.columnWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.columnWidths = new int[] { 315, 99, 0 };
+		gridBagLayout.rowHeights = new int[] { 25, 241, 0 };
+		gridBagLayout.columnWeights = new double[] { 0.0, 0.0, Double.MIN_VALUE };
+		gridBagLayout.rowWeights = new double[] { 0.0, 0.0, Double.MIN_VALUE };
 		setLayout(gridBagLayout);
-		
+
 		textBuscar = new JTextField();
 		GridBagConstraints gbc_textBuscar = new GridBagConstraints();
 		gbc_textBuscar.weightx = 1.0;
@@ -68,7 +71,7 @@ public class NotaSelPane extends JPanel implements ActionListener {
 		gbc_textBuscar.gridy = 0;
 		add(textBuscar, gbc_textBuscar);
 		textBuscar.setColumns(10);
-		
+
 		btnBuscar = new JButton("Buscar");
 		btnBuscar.addActionListener(this);
 		GridBagConstraints gbc_btnBuscar = new GridBagConstraints();
@@ -78,8 +81,20 @@ public class NotaSelPane extends JPanel implements ActionListener {
 		gbc_btnBuscar.gridx = 1;
 		gbc_btnBuscar.gridy = 0;
 		add(btnBuscar, gbc_btnBuscar);
-		
+
 		listNotas = new JList<String>(datos);
+		listNotas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+		MouseListener mouseListener = new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				if (e.getClickCount() == 1) {
+					int index = listNotas.locationToIndex(e.getPoint());
+					_raiseNotaClickEvent(index);
+				}
+			}
+		};
+		
+		listNotas.addMouseListener(mouseListener);
 		listNotas.setBorder(new LineBorder(new Color(0, 0, 0)));
 		listNotas.setVisibleRowCount(0);
 		GridBagConstraints gbc_listNotas = new GridBagConstraints();
@@ -94,59 +109,83 @@ public class NotaSelPane extends JPanel implements ActionListener {
 		add(listNotas, gbc_listNotas);
 
 	}
-	
+
 	// #endregion
 
 	// #region Getters/Setters
-	
+
 	public void setList(NotasList list) {
 		this.list = list;
 		refresh();
 	}
-	
+
 	// #endregion
-	
+
 	// #region Métodos auxiliares
-	
+
 	private void refresh() {
 		datos.removeAllElements();
 		for (int i = 0; i < list.size(); i++) {
-			datos.addElement(list.getNota(i).getTitulo());
+			datos.addElement("[" + String.valueOf(list.getNota(i).getId()) + "] " + list.getNota(i).getTitulo());
 		}
 
 		listNotas = new JList<String>(datos);
+		seleccionarFirstNota();
 		this.repaint();
+	}
+
+	// #endregion
+
+	// #region Métodos públicos
+	
+	public void seleccionarFirstNota() {
+		listNotas.setSelectedIndex(0);
+		_raiseNotaClickEvent(0);
 	}
 	
 	// #endregion
 	
-	// #region Gestión de eventos
+	// #region Gestión de eventos de elementos gráficos
 
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnBuscar) {
-			_raiseButtonClickEvent(btnBuscar);
+			_raiseButtonBuscarClickEvent(btnBuscar);
 		}
 	}
+
 	// #endregion
-	
+
 	// #region Generación de eventos
 
 	private List _listeners = new ArrayList();
-	
-    public synchronized void addListener(ButtonClickListener l ) {
-        _listeners.add(l);
-    }
-    
-    public synchronized void removeListener(ButtonClickListener l ) {
-        _listeners.remove(l);
-    }
-    
-    private synchronized void _raiseButtonClickEvent(Object source) {
-        ButtonClickEvent button = new ButtonClickEvent(source, textBuscar.getText());
-        Iterator listeners = _listeners.iterator();
-        while( listeners.hasNext() ) {
-            ((ButtonClickListener) listeners.next() ).buttonClicked(button);
-        }
-    }
+
+	public synchronized void addListener(NotaSelPaneListener l) {
+		_listeners.add(l);
+	}
+
+	public synchronized void removeListener(NotaSelPaneListener l) {
+		_listeners.remove(l);
+	}
+
+	private synchronized void _raiseButtonBuscarClickEvent(Object source) {
+		NotaSelPaneEvent ev = new NotaSelPaneEvent(source, textBuscar.getText());
+		Iterator listeners = _listeners.iterator();
+		while (listeners.hasNext()) {
+			((NotaSelPaneListener) listeners.next()).buttonBuscarClick(ev);
+		}
+	}
+
+	private synchronized void _raiseNotaClickEvent(int index) {
+		String str = datos.getElementAt(index);
+		
+		int idNota = Integer.parseInt(str.substring(1, str.indexOf("]")));
+		NotaSelPaneEvent ev = new NotaSelPaneEvent(this, idNota);
+		Iterator listeners = _listeners.iterator();
+		while (listeners.hasNext()) {
+			((NotaSelPaneListener) listeners.next()).notaClick(ev);
+		}
+	}
+
 	// #endregion
+
 }

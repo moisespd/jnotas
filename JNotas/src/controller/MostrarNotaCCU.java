@@ -21,22 +21,32 @@ public class MostrarNotaCCU {
 	
 	// #endregion
 	
-	// #region Constructor
+	// #region Getters/Setters
 	
-	public MostrarNotaCCU(int idNota) {
+	public void setIdNota(int idNota) {
 		try {
 			nota.get(idNota);
 		}
 		catch (Exception e) {
 		}
+		
+		miVista.setNota(nota);
+	}
+	
+	// #endregion
+	
+	// #region Constructor
+	
+	public MostrarNotaCCU() {
 	}
 	
 	// #endregion
 	
 	// #region Métodos de controladoras
 
-	public void iniciar() {
+	public void iniciar(int idNota) {
 		try {
+			nota.get(idNota);
 			miVista.setNota(nota);
 		}
 		catch (Exception e) {
