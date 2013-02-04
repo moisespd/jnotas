@@ -19,8 +19,13 @@ import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EtchedBorder;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
-public class MainFrm extends JFrame {
+public class MainFrm extends JFrame implements ActionListener {
 
 	// #region Vistas incluidas
 	
@@ -35,6 +40,9 @@ public class MainFrm extends JFrame {
 	
 	ImageIcon imageHeader;
 	JPanel panelCenter = new JPanel();
+	JButton btnNuevo = new JButton("Nuevo");
+	JButton btnEditar = new JButton("Editar");
+	JButton btnBorrar = new JButton("Borrar");
 
 	// #endregion
 
@@ -73,8 +81,8 @@ public class MainFrm extends JFrame {
 		gbc_lblSystemIcon.gridx = 0;
 		gbc_lblSystemIcon.gridy = 0;
 		panelTop.add(lblSystemIcon, gbc_lblSystemIcon);
+		btnNuevo.addActionListener(this);
 		
-		JButton btnNuevo = new JButton("Nuevo");
 		btnNuevo.setMargin(new Insets(0, 0, 0, 0));
 		btnNuevo.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnNuevo.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -86,8 +94,8 @@ public class MainFrm extends JFrame {
 		gbc_btnNuevo.gridx = 2;
 		gbc_btnNuevo.gridy = 0;
 		panelTop.add(btnNuevo, gbc_btnNuevo);
+		btnEditar.addActionListener(this);
 		
-		JButton btnEditar = new JButton("Editar");
 		btnEditar.setIcon(new ImageIcon(MainFrm.class.getResource("/images/editFile_32x32.png")));
 		btnEditar.setMargin(new Insets(0, 0, 0, 0));
 		btnEditar.setVerticalTextPosition(SwingConstants.BOTTOM);
@@ -100,7 +108,7 @@ public class MainFrm extends JFrame {
 		gbc_btnEditar.gridy = 0;
 		panelTop.add(btnEditar, gbc_btnEditar);
 		
-		JButton btnBorrar = new JButton("Borrar");
+		btnBorrar.addActionListener(this);
 		btnBorrar.setIcon(new ImageIcon(MainFrm.class.getResource("/images/dropFile_32x32.png")));
 		btnBorrar.setMargin(new Insets(0, 0, 0, 0));
 		btnBorrar.setVerticalTextPosition(SwingConstants.BOTTOM);
@@ -165,6 +173,37 @@ public class MainFrm extends JFrame {
 		
 		this.setVisible(show);
 	
+	}
+	
+	// #endregion
+
+	// #region Gestión de eventos del formulario
+	
+	public void actionPerformed(ActionEvent ev) {
+		_raiseButtonClickEvent(((JButton)ev.getSource()).getText());
+	}
+	
+	// #endregion
+	
+	// #region Generación de eventos
+	
+
+	private List _listeners = new ArrayList();
+
+	public synchronized void addListener(ToolbarListener l) {
+		_listeners.add(l);
+	}
+
+	public synchronized void removeListener(ToolbarListener l) {
+		_listeners.remove(l);
+	}
+
+	private synchronized void _raiseButtonClickEvent(String buttonName) {
+		ToolbarEvent ev = new ToolbarEvent(this, buttonName);
+		Iterator listeners = _listeners.iterator();
+		while (listeners.hasNext()) {
+			((ToolbarListener) listeners.next()).buttonClick(ev);
+		}
 	}
 	
 	// #endregion

@@ -1,10 +1,13 @@
 package controller;
 
+import model.Nota;
 import view.MainFrm;
 import view.NotaSelPaneEvent;
+import view.ToolbarEvent;
+import view.ToolbarListener;
 
 
-public class MainCCU implements SeleccionarNotaCCUListener {
+public class MainCCU implements ToolbarListener, SeleccionarNotaCCUListener {
 	
 	// #region Objetos de negocio
 	
@@ -28,6 +31,7 @@ public class MainCCU implements SeleccionarNotaCCUListener {
 	
 	public MainCCU() {
 		seleccionarNotaCCU.addListener(this);
+		miVista.addListener(this);
 	}
 	
 	// #endregion
@@ -48,10 +52,35 @@ public class MainCCU implements SeleccionarNotaCCUListener {
 	
 	// #endregion
 	
-	// #region gestión de eventos de las CCU incluidas
+	// #region Gestión de eventos de las CCU incluidas
 	
 	public void notaClick(NotaSelPaneEvent ev) {
 		mostrarNotaCCU.iniciar(ev.getIdNota());
 	}
+	
+	// #endregion
+
+	// #region Gestión de eventos de su vista
+
+	private void borrarSelectedNota() { 
+		Nota n = new Nota();
+		try {
+			n.get(seleccionarNotaCCU.getIdSelectedNota());
+			n.delete();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		seleccionarNotaCCU.reiniciar();
+	}
+	
+	// -------------------------------------------------------------------------------------
+	public void buttonClick(ToolbarEvent ev) {
+		if (ev.getButtonName().equals("Borrar")) {
+			borrarSelectedNota();
+		}
+	}
 	// #endregion
 }
+

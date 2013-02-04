@@ -4,16 +4,18 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import model.Nota;
 import model.NotasList;
+import view.NotaSelPane;
 import view.NotaSelPaneEvent;
 import view.NotaSelPaneListener;
-import view.NotaSelPane;
 
 public class SeleccionarNotaCCU implements NotaSelPaneListener {
 
 	// #region Objetos de negocio
 
 	NotasList notas = new NotasList();
+	int idSelectedNota = -1;
 	
 	// #endregion
 	
@@ -34,9 +36,28 @@ public class SeleccionarNotaCCU implements NotaSelPaneListener {
 	}
 	
 	// #endregion
+
+	// #region Getters/Setters
 	
+	public int getIdSelectedNota() {
+		return this.idSelectedNota;
+	}
+	
+	// #endregion
+
 	// #region Métodos de controladoras
 
+	public void reiniciar() {
+		try {
+			notas = new NotasList();
+			notas.get();
+			miVista.setList(notas);
+		}
+		catch (Exception e) {
+		}
+	}
+
+	// ------------------------------------------------------------------------------------------
 	public void iniciar() {
 		try {
 			notas.get();
@@ -64,7 +85,8 @@ public class SeleccionarNotaCCU implements NotaSelPaneListener {
 	}
 	
 	public void notaClick(NotaSelPaneEvent e) {
-		_raiseNotaClickEvent(e.getIdNota());
+		this.idSelectedNota = e.getIdNota();
+		_raiseNotaClickEvent(idSelectedNota);
 	}
 	// #endregion
 
