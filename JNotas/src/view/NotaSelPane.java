@@ -157,7 +157,7 @@ public class NotaSelPane extends JPanel implements ActionListener {
 
 	// #region Generación de eventos
 
-	private List _listeners = new ArrayList();
+	private List<NotaSelPaneListener> _listeners = new ArrayList<NotaSelPaneListener>();
 
 	public synchronized void addListener(NotaSelPaneListener l) {
 		_listeners.add(l);
@@ -169,7 +169,7 @@ public class NotaSelPane extends JPanel implements ActionListener {
 
 	private synchronized void _raiseButtonBuscarClickEvent(Object source) {
 		NotaSelPaneEvent ev = new NotaSelPaneEvent(source, textBuscar.getText());
-		Iterator listeners = _listeners.iterator();
+		Iterator<NotaSelPaneListener> listeners = _listeners.iterator();
 		while (listeners.hasNext()) {
 			((NotaSelPaneListener) listeners.next()).buttonBuscarClick(ev);
 		}
@@ -180,7 +180,7 @@ public class NotaSelPane extends JPanel implements ActionListener {
 		
 		int idNota = Integer.parseInt(str.substring(1, str.indexOf("]")));
 		NotaSelPaneEvent ev = new NotaSelPaneEvent(this, idNota);
-		Iterator listeners = _listeners.iterator();
+		Iterator<NotaSelPaneListener> listeners = _listeners.iterator();
 		while (listeners.hasNext()) {
 			((NotaSelPaneListener) listeners.next()).notaClick(ev);
 		}

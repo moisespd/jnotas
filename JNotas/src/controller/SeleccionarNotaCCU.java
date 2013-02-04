@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import model.Nota;
 import model.NotasList;
 import view.NotaSelPane;
 import view.NotaSelPaneEvent;
@@ -92,7 +91,7 @@ public class SeleccionarNotaCCU implements NotaSelPaneListener {
 
 	// #region Generación de eventos
 
-	private List _listeners = new ArrayList();
+	private List<SeleccionarNotaCCUListener> _listeners = new ArrayList<SeleccionarNotaCCUListener>();
 	
     public synchronized void addListener(SeleccionarNotaCCUListener l ) {
         _listeners.add(l);
@@ -105,7 +104,7 @@ public class SeleccionarNotaCCU implements NotaSelPaneListener {
     
     private synchronized void _raiseNotaClickEvent(int idNota) {
         NotaSelPaneEvent ev = new NotaSelPaneEvent(this, idNota);
-        Iterator listeners = _listeners.iterator();
+        Iterator<SeleccionarNotaCCUListener> listeners = _listeners.iterator();
         while( listeners.hasNext() ) {
             ((SeleccionarNotaCCUListener) listeners.next() ).notaClick(ev);
         }

@@ -9,7 +9,6 @@ import java.awt.Insets;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 
-import javax.swing.*;
 import java.awt.*;
 
 import java.awt.BorderLayout;
@@ -188,7 +187,7 @@ public class MainFrm extends JFrame implements ActionListener {
 	// #region Generación de eventos
 	
 
-	private List _listeners = new ArrayList();
+	private List<ToolbarListener> _listeners = new ArrayList<ToolbarListener>();
 
 	public synchronized void addListener(ToolbarListener l) {
 		_listeners.add(l);
@@ -200,7 +199,7 @@ public class MainFrm extends JFrame implements ActionListener {
 
 	private synchronized void _raiseButtonClickEvent(String buttonName) {
 		ToolbarEvent ev = new ToolbarEvent(this, buttonName);
-		Iterator listeners = _listeners.iterator();
+		Iterator<ToolbarListener> listeners = _listeners.iterator();
 		while (listeners.hasNext()) {
 			((ToolbarListener) listeners.next()).buttonClick(ev);
 		}
