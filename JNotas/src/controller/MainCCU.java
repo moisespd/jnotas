@@ -3,20 +3,21 @@ package controller;
 import model.Nota;
 import view.MainFrm;
 import view.NotaSelPaneEvent;
-import view.ToolbarEvent;
-import view.ToolbarListener;
+import view.NuevaNotaFrm;
+import view.ButtonEvent;
+import view.ButtonListener;
 
 
-public class MainCCU implements ToolbarListener, SeleccionarNotaCCUListener {
+public class MainCCU implements ButtonListener, SeleccionarNotaCCUListener {
 	
 	// #region Objetos de negocio
-	
 	
 	// #endregion
 	
 	// #region Vista
 
 	MainFrm miVista = new MainFrm();
+	NuevaNotaFrm nuevaNotaFrm;
 	
 	// #endregion
 	
@@ -57,7 +58,7 @@ public class MainCCU implements ToolbarListener, SeleccionarNotaCCUListener {
 	public void notaClick(NotaSelPaneEvent ev) {
 		mostrarNotaCCU.iniciar(ev.getIdNota());
 	}
-	
+
 	// #endregion
 
 	// #region Gestión de eventos de su vista
@@ -74,11 +75,27 @@ public class MainCCU implements ToolbarListener, SeleccionarNotaCCUListener {
 		
 		seleccionarNotaCCU.reiniciar();
 	}
-	
 	// -------------------------------------------------------------------------------------
-	public void buttonClick(ToolbarEvent ev) {
-		if (ev.getButtonName().equals("Borrar")) {
-			borrarSelectedNota();
+	private void crearNuevaNota() {
+		nuevaNotaFrm = new NuevaNotaFrm(this.miVista, true);
+		nuevaNotaFrm.addListener(this);
+		
+		Nota nota = new Nota();
+		nuevaNotaFrm.setNota(nota);
+		nuevaNotaFrm.setVisible(true);
+	}
+	// -------------------------------------------------------------------------------------
+	public void buttonClick(ButtonEvent ev) {
+		switch (ev.getButtonName()) {
+			case "Borrar":
+				borrarSelectedNota();
+				break;
+			case "Nuevo":
+				crearNuevaNota();
+				break;
+			default:
+				System.out.println("MainCCU: pulsado botón " + ev.getButtonName());
+				break;
 		}
 	}
 	// #endregion

@@ -187,21 +187,21 @@ public class MainFrm extends JFrame implements ActionListener {
 	// #region Generación de eventos
 	
 
-	private List<ToolbarListener> _listeners = new ArrayList<ToolbarListener>();
+	private List<ButtonListener> _listeners = new ArrayList<ButtonListener>();
 
-	public synchronized void addListener(ToolbarListener l) {
+	public synchronized void addListener(ButtonListener l) {
 		_listeners.add(l);
 	}
 
-	public synchronized void removeListener(ToolbarListener l) {
+	public synchronized void removeListener(ButtonListener l) {
 		_listeners.remove(l);
 	}
 
 	private synchronized void _raiseButtonClickEvent(String buttonName) {
-		ToolbarEvent ev = new ToolbarEvent(this, buttonName);
-		Iterator<ToolbarListener> listeners = _listeners.iterator();
+		ButtonEvent ev = new ButtonEvent(this, buttonName);
+		Iterator<ButtonListener> listeners = _listeners.iterator();
 		while (listeners.hasNext()) {
-			((ToolbarListener) listeners.next()).buttonClick(ev);
+			((ButtonListener) listeners.next()).buttonClick(ev);
 		}
 	}
 	

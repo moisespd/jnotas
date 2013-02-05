@@ -2,7 +2,7 @@ package view;
 
 import java.util.EventObject;
 
-public class ToolbarEvent extends EventObject {
+public class ButtonEvent extends EventObject {
 	private static final long serialVersionUID = 0;
 	
 	String buttonName = "";
@@ -11,7 +11,7 @@ public class ToolbarEvent extends EventObject {
 		return buttonName;
 	}
 	
-	public ToolbarEvent(Object source, String buttonName) {
+	public ButtonEvent(Object source, String buttonName) {
 		super(source);
 		this.buttonName= buttonName;
 	}
