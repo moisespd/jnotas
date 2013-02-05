@@ -4,7 +4,7 @@ import java.util.EventObject;
 
 public class NotaSelPaneEvent extends EventObject {
 	private static final long serialVersionUID = 0;
-	public enum TipoAccion{SIMPLE_CLICK, DOUBLE_CLICK};
+	public enum TipoAccion{SIMPLE_CLICK, DOUBLE_CLICK, SUPRIMIR, INTRO};
 	
 	String text = "";
 	int idNota = -1;

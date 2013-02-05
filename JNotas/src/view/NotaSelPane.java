@@ -27,6 +27,10 @@ import javax.swing.border.LineBorder;
 import view.NotaSelPaneEvent.TipoAccion;
 
 import model.NotasList;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.event.ListSelectionEvent;
 // #endregion
 // #region Objetos de negocio
 // #endregion
@@ -85,16 +89,36 @@ public class NotaSelPane extends JPanel implements ActionListener {
 
 		listNotas = new JList<String>(datos);
 		listNotas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		listNotas.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				int index = listNotas.getSelectedIndex();
+				
+				switch ((int) e.getKeyChar()) {
+					case 10:
+						_raiseNotaClickEvent(index, TipoAccion.INTRO);
+						break;
+					case 127:
+						_raiseNotaClickEvent(index, TipoAccion.SUPRIMIR);
+				}
+			}
+		});
 
 		MouseListener mouseListener = new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
+				int index;
+				
 				if (e.getClickCount() == 1) {
-					int index = listNotas.locationToIndex(e.getPoint());
+					index = listNotas.locationToIndex(e.getPoint());
+					System.out.println("index = " + index);
+					System.out.println("selected value = " + listNotas.getSelectedValue());
+					
+					listNotas.setSelectedIndex(index);
 					_raiseNotaClickEvent(index, TipoAccion.SIMPLE_CLICK);
 				}
 
 				if (e.getClickCount() == 2) {
-					int index = listNotas.locationToIndex(e.getPoint());
+					index = listNotas.locationToIndex(e.getPoint());
 					_raiseNotaClickEvent(index, TipoAccion.DOUBLE_CLICK);
 				}
 			}
@@ -102,7 +126,6 @@ public class NotaSelPane extends JPanel implements ActionListener {
 		
 		listNotas.addMouseListener(mouseListener);
 		listNotas.setBorder(new LineBorder(new Color(0, 0, 0)));
-		listNotas.setVisibleRowCount(0);
 		GridBagConstraints gbc_listNotas = new GridBagConstraints();
 		gbc_listNotas.insets = new Insets(5, 5, 5, 5);
 		gbc_listNotas.weighty = 1.0;

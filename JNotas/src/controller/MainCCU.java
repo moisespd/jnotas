@@ -65,6 +65,10 @@ public class MainCCU implements ButtonListener, SeleccionarNotaCCUListener {
 			mostrarNotaCCU.iniciar(ev.getIdNota());
 		else if (ev.getTipoAccion() == TipoAccion.DOUBLE_CLICK)
 			editarNota();
+		else if (ev.getTipoAccion() == TipoAccion.INTRO)
+			editarNota();
+		else if (ev.getTipoAccion() == TipoAccion.SUPRIMIR)
+			borrarSelectedNota();
 	}
 
 	// #endregion
