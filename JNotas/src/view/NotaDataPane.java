@@ -1,25 +1,27 @@
 package view;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 
+import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import model.Nota;
 import model.Util;
-import javax.swing.JCheckBox;
-import javax.swing.JTextArea;
 
 public class NotaDataPane extends JPanel {
 
 	// #region Objetos de negocio
 	
 	Nota nota = new Nota();
+	boolean readOnly = true;
 	
 	// #endregion
 	
@@ -42,7 +44,7 @@ public class NotaDataPane extends JPanel {
 	
 	// #region Constructor
 	
-	public NotaDataPane() {
+	private void initComponents() {
 		Insets insets = new Insets(5,5,5,5);
 
 		setForeground(Color.LIGHT_GRAY);
@@ -220,13 +222,27 @@ public class NotaDataPane extends JPanel {
 		txtDescripcion = new JTextArea();
 		txtDescripcion.setBorder(txtTitulo.getBorder());
 		GridBagConstraints gbc_txtDescripcion = new GridBagConstraints();
-		gbc_txtDescripcion.insets = new Insets(5, 5, 5, 5);
+		gbc_txtDescripcion.insets = new Insets(5, 5, 5, 0);
 		gbc_txtDescripcion.fill = GridBagConstraints.BOTH;
 		gbc_txtDescripcion.gridx = 1;
 		gbc_txtDescripcion.gridy = 8;
 		add(txtDescripcion, gbc_txtDescripcion);
-	
+		
+		
 	}
+	
+	// -----------------------------------------------------------------------------
+	public NotaDataPane() {
+		initComponents();
+	}
+	// -----------------------------------------------------------------------------
+	public NotaDataPane(boolean readOnly) {
+		initComponents();
+		this.readOnly = readOnly;
+		
+		setOnlyReadable(readOnly);
+	}
+	// -----------------------------------------------------------------------------
 
 	// #endregion
 
@@ -244,6 +260,7 @@ public class NotaDataPane extends JPanel {
 		this.checkBoxResuelta.setSelected(nota.getResuelta());
 	}
 	
+	// -----------------------------------------------------------------------------
 	public void reverseRefresh() {
 		nota.setTitulo(this.txtTitulo.getText());
 		nota.setDescripcion(this.txtDescripcion.getText());
@@ -253,6 +270,21 @@ public class NotaDataPane extends JPanel {
 		nota.setPrioridad(Integer.parseInt(txtPrioridad.getText()));
 		nota.setResuelta(checkBoxResuelta.isSelected());
 	}
+	// -----------------------------------------------------------------------------
+	public void setOnlyReadable(boolean readOnly) {
+		for (int i = 0; i < this.getComponentCount(); i++) {
+			Component c = this.getComponent(i);
+			
+			if (c instanceof JTextField)
+				((JTextField) c).setEditable(! readOnly);
+			if (c instanceof JTextArea)
+				((JTextArea) c).setEditable(! readOnly);
+			
+			if (c instanceof JCheckBox)
+				((JCheckBox) c).setEnabled(! readOnly);
+		}
+	}
+	// -----------------------------------------------------------------------------
 	
 	// #endregion
 	

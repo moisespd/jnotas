@@ -13,7 +13,7 @@ public class MostrarNotaCCU {
 	
 	// #region Vista
 	
-	private NotaDataPane miVista = new NotaDataPane();
+	private NotaDataPane miVista = new NotaDataPane(true);
 	
 	public NotaDataPane getVista() {
 		return miVista;
