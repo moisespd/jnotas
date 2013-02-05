@@ -3,7 +3,6 @@ package controller;
 import model.Nota;
 import view.ButtonEvent;
 import view.ButtonListener;
-import view.CrearEditarNotaFrm;
 import view.MainFrm;
 import view.NotaSelPaneEvent;
 

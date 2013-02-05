@@ -3,31 +3,30 @@ package view;
 // #region Imports
 
 // #region Objetos de presentación 
-import javax.swing.DefaultListModel;
-import javax.swing.JPanel;
-import javax.swing.JList;
-import javax.swing.JTextField;
 import java.awt.Color;
-import javax.swing.JButton;
-import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.Insets;
-
-// #endregion
-
-// #region Objetos de negocio
-
-import model.NotasList;
-import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import javax.swing.border.LineBorder;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+
+import javax.swing.DefaultListModel;
+import javax.swing.JButton;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
+import javax.swing.border.LineBorder;
+
+import model.NotasList;
+// #endregion
+// #region Objetos de negocio
 // #endregion
 
 // #endregion

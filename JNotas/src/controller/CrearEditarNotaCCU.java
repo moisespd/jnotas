@@ -1,17 +1,11 @@
 package controller;
 
-import java.awt.List;
-import java.util.ArrayList;
-import java.util.Iterator;
-
 import javax.swing.JFrame;
 
 import model.Nota;
-import model.NotasList;
 import view.ButtonEvent;
 import view.ButtonListener;
 import view.CrearEditarNotaFrm;
-import view.NotaSelPaneEvent;
 
 public class CrearEditarNotaCCU implements ButtonListener {
 
