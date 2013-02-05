@@ -5,6 +5,7 @@ import view.ButtonEvent;
 import view.ButtonListener;
 import view.MainFrm;
 import view.NotaSelPaneEvent;
+import view.NotaSelPaneEvent.TipoAccion;
 
 
 public class MainCCU implements ButtonListener, SeleccionarNotaCCUListener {
@@ -60,7 +61,10 @@ public class MainCCU implements ButtonListener, SeleccionarNotaCCUListener {
 	// #region Gestión de eventos de las CCU incluidas
 	
 	public void notaClick(NotaSelPaneEvent ev) {
-		mostrarNotaCCU.iniciar(ev.getIdNota());
+		if (ev.getTipoAccion() == TipoAccion.SIMPLE_CLICK)
+			mostrarNotaCCU.iniciar(ev.getIdNota());
+		else if (ev.getTipoAccion() == TipoAccion.DOUBLE_CLICK)
+			editarNota();
 	}
 
 	// #endregion

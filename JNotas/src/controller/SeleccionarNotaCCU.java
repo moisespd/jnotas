@@ -8,6 +8,7 @@ import model.NotasList;
 import view.NotaSelPane;
 import view.NotaSelPaneEvent;
 import view.NotaSelPaneListener;
+import view.NotaSelPaneEvent.TipoAccion;
 
 public class SeleccionarNotaCCU implements NotaSelPaneListener {
 
@@ -85,7 +86,7 @@ public class SeleccionarNotaCCU implements NotaSelPaneListener {
 	
 	public void notaClick(NotaSelPaneEvent e) {
 		this.idSelectedNota = e.getIdNota();
-		_raiseNotaClickEvent(idSelectedNota);
+		_raiseNotaClickEvent(idSelectedNota, e.getTipoAccion());
 	}
 	// #endregion
 
@@ -102,8 +103,8 @@ public class SeleccionarNotaCCU implements NotaSelPaneListener {
     }
     
     
-    private synchronized void _raiseNotaClickEvent(int idNota) {
-        NotaSelPaneEvent ev = new NotaSelPaneEvent(this, idNota);
+    private synchronized void _raiseNotaClickEvent(int idNota, TipoAccion accion) {
+        NotaSelPaneEvent ev = new NotaSelPaneEvent(this, idNota, accion);
         Iterator<SeleccionarNotaCCUListener> listeners = _listeners.iterator();
         while( listeners.hasNext() ) {
             ((SeleccionarNotaCCUListener) listeners.next() ).notaClick(ev);

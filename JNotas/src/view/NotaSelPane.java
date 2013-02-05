@@ -24,6 +24,8 @@ import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.LineBorder;
 
+import view.NotaSelPaneEvent.TipoAccion;
+
 import model.NotasList;
 // #endregion
 // #region Objetos de negocio
@@ -88,7 +90,12 @@ public class NotaSelPane extends JPanel implements ActionListener {
 			public void mouseClicked(MouseEvent e) {
 				if (e.getClickCount() == 1) {
 					int index = listNotas.locationToIndex(e.getPoint());
-					_raiseNotaClickEvent(index);
+					_raiseNotaClickEvent(index, TipoAccion.SIMPLE_CLICK);
+				}
+
+				if (e.getClickCount() == 2) {
+					int index = listNotas.locationToIndex(e.getPoint());
+					_raiseNotaClickEvent(index, TipoAccion.DOUBLE_CLICK);
 				}
 			}
 		};
@@ -139,7 +146,7 @@ public class NotaSelPane extends JPanel implements ActionListener {
 	
 	public void seleccionarFirstNota() {
 		listNotas.setSelectedIndex(0);
-		_raiseNotaClickEvent(0);
+		_raiseNotaClickEvent(0, TipoAccion.SIMPLE_CLICK);
 	}
 	
 	// #endregion
@@ -174,11 +181,11 @@ public class NotaSelPane extends JPanel implements ActionListener {
 		}
 	}
 
-	private synchronized void _raiseNotaClickEvent(int index) {
+	private synchronized void _raiseNotaClickEvent(int index, TipoAccion accion) {
 		String str = datos.getElementAt(index);
 		
 		int idNota = Integer.parseInt(str.substring(1, str.indexOf("]")));
-		NotaSelPaneEvent ev = new NotaSelPaneEvent(this, idNota);
+		NotaSelPaneEvent ev = new NotaSelPaneEvent(this, idNota, accion);
 		Iterator<NotaSelPaneListener> listeners = _listeners.iterator();
 		while (listeners.hasNext()) {
 			((NotaSelPaneListener) listeners.next()).notaClick(ev);
