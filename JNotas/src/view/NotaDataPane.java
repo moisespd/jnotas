@@ -215,10 +215,19 @@ public class NotaDataPane extends JPanel {
 		this.txtDescripcion.setText(nota.getDescripcion());
 		this.txtIdCarpeta.setText(String.valueOf(nota.getIdCarpeta()));
 		this.txtFechaCreacion.setText(Util.datetime2String(nota.getFechaCreacion()));
-		this.txtFechaInicio.setText(Util.datetime2String(nota.getFechaInicio()));
-		this.txtFechaFin.setText(Util.datetime2String(nota.getFechaFin()));
+		this.txtFechaInicio.setText(Util.date2String(nota.getFechaInicio()));
+		this.txtFechaFin.setText(Util.date2String(nota.getFechaFin()));
+		this.txtPrioridad.setText(String.valueOf(nota.getPrioridad()));
 	}
 	
+	public void reverseRefresh() {
+		nota.setTitulo(this.txtTitulo.getText());
+		nota.setDescripcion(this.txtDescripcion.getText());
+		nota.setIdCarpeta(Integer.parseInt(this.txtIdCarpeta.getText()));
+		nota.setFechaInicio(Util.string2date(this.txtFechaInicio.getText()));
+		nota.setFechaFin(Util.string2date(this.txtFechaFin.getText()));
+		nota.setPrioridad(Integer.parseInt(txtPrioridad.getText()));
+	}
 	// #endregion
 	
 	// #region setters/getters

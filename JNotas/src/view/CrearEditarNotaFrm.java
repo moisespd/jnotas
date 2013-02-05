@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class NuevaNotaFrm extends JDialog implements ActionListener {
+public class CrearEditarNotaFrm extends JDialog implements ActionListener {
 
 	// #region Objetos de negocio
 	
@@ -62,12 +62,12 @@ public class NuevaNotaFrm extends JDialog implements ActionListener {
 		}
 	}
 	
-	public NuevaNotaFrm(JFrame parent, boolean modal) {
+	public CrearEditarNotaFrm(JFrame parent, boolean modal) {
 		super(parent, modal);
 		initComponents();
 	}
 	
-	public NuevaNotaFrm() {
+	public CrearEditarNotaFrm() {
 		initComponents();
 	}
 	
@@ -91,6 +91,7 @@ public class NuevaNotaFrm extends JDialog implements ActionListener {
 	// #region Captura de eventos del formulario
 
 	public void actionPerformed(ActionEvent ev) {
+		notaDataPane.reverseRefresh();
 		_raiseButtonClickEvent(((JButton)ev.getSource()).getText());
 	}
 	// #endregion

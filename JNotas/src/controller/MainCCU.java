@@ -1,11 +1,11 @@
 package controller;
 
 import model.Nota;
-import view.MainFrm;
-import view.NotaSelPaneEvent;
-import view.NuevaNotaFrm;
 import view.ButtonEvent;
 import view.ButtonListener;
+import view.CrearEditarNotaFrm;
+import view.MainFrm;
+import view.NotaSelPaneEvent;
 
 
 public class MainCCU implements ButtonListener, SeleccionarNotaCCUListener {
@@ -17,7 +17,12 @@ public class MainCCU implements ButtonListener, SeleccionarNotaCCUListener {
 	// #region Vista
 
 	MainFrm miVista = new MainFrm();
-	NuevaNotaFrm nuevaNotaFrm;
+	
+	// #endregion
+
+	// #region Controladoras de extensión
+	
+	CrearEditarNotaCCU crearEditarNotaCCU;
 	
 	// #endregion
 	
@@ -77,12 +82,12 @@ public class MainCCU implements ButtonListener, SeleccionarNotaCCUListener {
 	}
 	// -------------------------------------------------------------------------------------
 	private void crearNuevaNota() {
-		nuevaNotaFrm = new NuevaNotaFrm(this.miVista, true);
-		nuevaNotaFrm.addListener(this);
+		crearEditarNotaCCU = new CrearEditarNotaCCU(this.miVista);
+		crearEditarNotaCCU.iniciar();
 		
-		Nota nota = new Nota();
-		nuevaNotaFrm.setNota(nota);
-		nuevaNotaFrm.setVisible(true);
+		// Cuando termine la controladora anterior, refrescamos la de seleccionar 
+		// para que aparezca la nueva
+		seleccionarNotaCCU.reiniciar();
 	}
 	// -------------------------------------------------------------------------------------
 	public void buttonClick(ButtonEvent ev) {
@@ -92,9 +97,6 @@ public class MainCCU implements ButtonListener, SeleccionarNotaCCUListener {
 				break;
 			case "Nuevo":
 				crearNuevaNota();
-				break;
-			default:
-				System.out.println("MainCCU: pulsado botón " + ev.getButtonName());
 				break;
 		}
 	}
