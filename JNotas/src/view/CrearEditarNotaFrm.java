@@ -14,7 +14,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import model.Nota;
-//import javax.swing.border.EmptyBorder;
 
 public class CrearEditarNotaFrm extends JDialog implements ActionListener {
 
@@ -36,11 +35,8 @@ public class CrearEditarNotaFrm extends JDialog implements ActionListener {
 	// #region Constructor 
 	
 	private void initComponents() {
-		setBounds(100, 100, 450, 307);
+		setBounds(100, 100, 650, 507);
 		getContentPane().setLayout(new BorderLayout());
-//		contentPanel.setLayout(new FlowLayout());
-//		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
-//		contentPanel.add(notaDataPane);
 		getContentPane().add(notaDataPane, BorderLayout.CENTER);
 		{
 			JPanel buttonPane = new JPanel();

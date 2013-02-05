@@ -5,6 +5,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 
+import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -12,6 +13,8 @@ import javax.swing.SwingConstants;
 
 import model.Nota;
 import model.Util;
+import javax.swing.JCheckBox;
+import javax.swing.JTextArea;
 
 public class NotaDataPane extends JPanel {
 
@@ -28,11 +31,13 @@ public class NotaDataPane extends JPanel {
 	private JTextField txtId;
 	private JTextField txtIdCarpeta;
 	private JTextField txtTitulo;
-	private JTextField txtDescripcion;
 	private JTextField txtFechaCreacion;
 	private JTextField txtFechaInicio;
 	private JTextField txtFechaFin;
 	private JTextField txtPrioridad;
+	private JLabel lblResuelta;
+	private JCheckBox checkBoxResuelta;
+	private JTextArea txtDescripcion;
 	
 	// #endregion
 	
@@ -44,9 +49,9 @@ public class NotaDataPane extends JPanel {
 		setForeground(Color.LIGHT_GRAY);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{146, 262, 0};
-		gridBagLayout.rowHeights = new int[]{19, 19, 19, 19, 19, 19, 19, 19, 0};
-		gridBagLayout.columnWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.rowHeights = new int[]{19, 19, 19, 19, 19, 19, 19, 19, 112, 0};
+		gridBagLayout.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
 				
 		JLabel lblId = new JLabel("id:");
@@ -64,7 +69,7 @@ public class NotaDataPane extends JPanel {
 		GridBagConstraints gbc_txtId = new GridBagConstraints();
 		gbc_txtId.anchor = GridBagConstraints.NORTH;
 		gbc_txtId.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtId.insets = insets;
+		gbc_txtId.insets = new Insets(5, 5, 5, 0);
 		gbc_txtId.gridx = 1;
 		gbc_txtId.gridy = 0;
 		this.add(txtId, gbc_txtId);
@@ -84,7 +89,7 @@ public class NotaDataPane extends JPanel {
 		GridBagConstraints gbc_txtIdCarpeta = new GridBagConstraints();
 		gbc_txtIdCarpeta.anchor = GridBagConstraints.NORTH;
 		gbc_txtIdCarpeta.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtIdCarpeta.insets = insets;
+		gbc_txtIdCarpeta.insets = new Insets(5, 5, 5, 0);
 		gbc_txtIdCarpeta.gridx = 1;
 		gbc_txtIdCarpeta.gridy = 1;
 		this.add(txtIdCarpeta, gbc_txtIdCarpeta);
@@ -104,29 +109,27 @@ public class NotaDataPane extends JPanel {
 		gbc_txtTitulo.weightx = 1.0;
 		gbc_txtTitulo.anchor = GridBagConstraints.NORTH;
 		gbc_txtTitulo.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtTitulo.insets = insets;
+		gbc_txtTitulo.insets = new Insets(5, 5, 5, 0);
 		gbc_txtTitulo.gridx = 1;
 		gbc_txtTitulo.gridy = 2;
 		this.add(txtTitulo, gbc_txtTitulo);
 		
-		JLabel lblNewLabel_1 = new JLabel("Descripción:");
-		lblNewLabel_1.setHorizontalAlignment(SwingConstants.RIGHT);
-		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
-		gbc_lblNewLabel_1.fill = GridBagConstraints.HORIZONTAL;
-		gbc_lblNewLabel_1.insets = insets;
-		gbc_lblNewLabel_1.gridx = 0;
-		gbc_lblNewLabel_1.gridy = 3;
-		this.add(lblNewLabel_1, gbc_lblNewLabel_1);
+		lblResuelta = new JLabel("Resuelta:");
+		lblResuelta.setHorizontalAlignment(SwingConstants.RIGHT);
+		GridBagConstraints gbc_lblResuelta = new GridBagConstraints();
+		gbc_lblResuelta.anchor = GridBagConstraints.EAST;
+		gbc_lblResuelta.insets = new Insets(0, 0, 5, 5);
+		gbc_lblResuelta.gridx = 0;
+		gbc_lblResuelta.gridy = 3;
+		add(lblResuelta, gbc_lblResuelta);
 		
-		txtDescripcion = new JTextField();
-		txtDescripcion.setColumns(10);
-		GridBagConstraints gbc_txtDescripcion = new GridBagConstraints();
-		gbc_txtDescripcion.anchor = GridBagConstraints.NORTH;
-		gbc_txtDescripcion.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtDescripcion.insets = insets;
-		gbc_txtDescripcion.gridx = 1;
-		gbc_txtDescripcion.gridy = 3;
-		this.add(txtDescripcion, gbc_txtDescripcion);
+		checkBoxResuelta = new JCheckBox("");
+		GridBagConstraints gbc_checkBox = new GridBagConstraints();
+		gbc_checkBox.anchor = GridBagConstraints.NORTHWEST;
+		gbc_checkBox.insets = new Insets(0, 0, 5, 0);
+		gbc_checkBox.gridx = 1;
+		gbc_checkBox.gridy = 3;
+		add(checkBoxResuelta, gbc_checkBox);
 		
 		JLabel lblFechaDeCreacin = new JLabel("Fecha de creación:");
 		lblFechaDeCreacin.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -142,7 +145,7 @@ public class NotaDataPane extends JPanel {
 		GridBagConstraints gbc_txtFechaCreacion = new GridBagConstraints();
 		gbc_txtFechaCreacion.anchor = GridBagConstraints.NORTH;
 		gbc_txtFechaCreacion.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtFechaCreacion.insets = insets;
+		gbc_txtFechaCreacion.insets = new Insets(5, 5, 5, 0);
 		gbc_txtFechaCreacion.gridx = 1;
 		gbc_txtFechaCreacion.gridy = 4;
 		this.add(txtFechaCreacion, gbc_txtFechaCreacion);
@@ -161,7 +164,7 @@ public class NotaDataPane extends JPanel {
 		GridBagConstraints gbc_txtFechaInicio = new GridBagConstraints();
 		gbc_txtFechaInicio.anchor = GridBagConstraints.NORTH;
 		gbc_txtFechaInicio.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtFechaInicio.insets = insets;
+		gbc_txtFechaInicio.insets = new Insets(5, 5, 5, 0);
 		gbc_txtFechaInicio.gridx = 1;
 		gbc_txtFechaInicio.gridy = 5;
 		this.add(txtFechaInicio, gbc_txtFechaInicio);
@@ -180,7 +183,7 @@ public class NotaDataPane extends JPanel {
 		GridBagConstraints gbc_txtFechaFin = new GridBagConstraints();
 		gbc_txtFechaFin.anchor = GridBagConstraints.NORTH;
 		gbc_txtFechaFin.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtFechaFin.insets = insets;
+		gbc_txtFechaFin.insets = new Insets(5, 5, 5, 0);
 		gbc_txtFechaFin.gridx = 1;
 		gbc_txtFechaFin.gridy = 6;
 		this.add(txtFechaFin, gbc_txtFechaFin);
@@ -199,10 +202,30 @@ public class NotaDataPane extends JPanel {
 		GridBagConstraints gbc_txtPrioridad = new GridBagConstraints();
 		gbc_txtPrioridad.anchor = GridBagConstraints.NORTH;
 		gbc_txtPrioridad.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtPrioridad.insets = insets;
+		gbc_txtPrioridad.insets = new Insets(5, 5, 5, 0);
 		gbc_txtPrioridad.gridx = 1;
 		gbc_txtPrioridad.gridy = 7;
 		this.add(txtPrioridad, gbc_txtPrioridad);
+		
+		JLabel lblNewLabel_1 = new JLabel("Descripción:");
+		lblNewLabel_1.setVerticalAlignment(SwingConstants.TOP);
+		lblNewLabel_1.setHorizontalAlignment(SwingConstants.RIGHT);
+		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
+		gbc_lblNewLabel_1.anchor = GridBagConstraints.NORTH;
+		gbc_lblNewLabel_1.fill = GridBagConstraints.HORIZONTAL;
+		gbc_lblNewLabel_1.insets = new Insets(5, 5, 0, 5);
+		gbc_lblNewLabel_1.gridx = 0;
+		gbc_lblNewLabel_1.gridy = 8;
+		this.add(lblNewLabel_1, gbc_lblNewLabel_1);
+		
+		txtDescripcion = new JTextArea();
+		txtDescripcion.setBorder(txtTitulo.getBorder());
+		GridBagConstraints gbc_txtDescripcion = new GridBagConstraints();
+		gbc_txtDescripcion.insets = new Insets(5, 5, 5, 5);
+		gbc_txtDescripcion.fill = GridBagConstraints.BOTH;
+		gbc_txtDescripcion.gridx = 1;
+		gbc_txtDescripcion.gridy = 8;
+		add(txtDescripcion, gbc_txtDescripcion);
 	
 	}
 
@@ -219,6 +242,7 @@ public class NotaDataPane extends JPanel {
 		this.txtFechaInicio.setText(Util.date2String(nota.getFechaInicio()));
 		this.txtFechaFin.setText(Util.date2String(nota.getFechaFin()));
 		this.txtPrioridad.setText(String.valueOf(nota.getPrioridad()));
+		this.checkBoxResuelta.setSelected(nota.getResuelta());
 	}
 	
 	public void reverseRefresh() {
@@ -228,7 +252,9 @@ public class NotaDataPane extends JPanel {
 		nota.setFechaInicio(Util.string2date(this.txtFechaInicio.getText()));
 		nota.setFechaFin(Util.string2date(this.txtFechaFin.getText()));
 		nota.setPrioridad(Integer.parseInt(txtPrioridad.getText()));
+		nota.setResuelta(checkBoxResuelta.isSelected());
 	}
+	
 	// #endregion
 	
 	// #region setters/getters

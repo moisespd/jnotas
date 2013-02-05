@@ -49,7 +49,7 @@ public class MainFrm extends JFrame implements ActionListener {
 	public MainFrm() {
 		setTitle("JNotas");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 911, 393);
+		setBounds(100, 100, 1011, 593);
 		
 		JPanel contentPane = new JPanel();
 		setContentPane(contentPane);

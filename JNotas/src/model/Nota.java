@@ -24,11 +24,13 @@ public class Nota extends BussinessObject {
 	private Date fechaInicio;
 	private Date fechaFin;
 	private int prioridad;
+	private boolean resuelta;
 	
 	// #endregion
 
 	// #region Getters/Setters
 	
+	// ----------------------------------------------------------------------------------
 	public void setId(int id) {
 		this.id = id;
 	}
@@ -84,7 +86,15 @@ public class Nota extends BussinessObject {
 	public void setPrioridad(int prioridad) {
 		this.prioridad = prioridad;
 	}
-	
+	// ----------------------------------------------------------------------------------
+	public boolean getResuelta() {
+		return this.resuelta;
+	}
+	// ----------------------------------------------------------------------------------
+	public void setResuelta(boolean value) {
+		resuelta = value;
+	}
+	// ----------------------------------------------------------------------------------
 	
 	// #endregion
 
@@ -212,6 +222,7 @@ public class Nota extends BussinessObject {
 		this.titulo = rs.getString("titulo");
 		this.descripcion = rs.getString("descripcion");
 		this.prioridad = rs.getInt("prioridad");
+		this.resuelta = rs.getBoolean("resuelta");
 	}
 	
 	// #endregion
@@ -230,7 +241,8 @@ public class Nota extends BussinessObject {
 				"	prioridad, " +
 				"	fechaCreacion, " +
 				"	fechaInicio, " +
-				"	fechaFin " +
+				"	fechaFin, " +
+				"	resuelta " +
 				") " +
 				"values (" +
 					String.valueOf(this.idCarpeta) + ", " +
@@ -239,7 +251,8 @@ public class Nota extends BussinessObject {
 					String.valueOf(this.prioridad) + ", " +
 					"'" + formato.format(fechaCreacion) + "', " +
 					"'" + formato.format(fechaInicio) + "', " +
-					"'" + formato.format(fechaFin) + "' " +
+					"'" + formato.format(fechaFin) + "', " +
+					this.resuelta + " " +
 				"); ";
 				
 		return sql;
@@ -258,7 +271,8 @@ public class Nota extends BussinessObject {
 				"	prioridad = '" + this.prioridad + "', " +
 				"	fechaCreacion = '" + formato.format(fechaCreacion) + "', " +  
 				"	fechaInicio = '" + formato.format(fechaInicio) + "', " +  
-				"	fechaFin = '" + formato.format(fechaFin) + "' " +  
+				"	fechaFin = '" + formato.format(fechaFin) + "', " +
+				"	resuelta = " + this.resuelta + " " +
 				"where id = " + String.valueOf(this.id) + "; ";
 		return sql;
 	}
