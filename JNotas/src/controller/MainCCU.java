@@ -89,6 +89,23 @@ public class MainCCU implements ButtonListener, SeleccionarNotaCCUListener {
 		seleccionarNotaCCU.reiniciar();
 	}
 	// -------------------------------------------------------------------------------------
+	private void editarNota() {
+		Nota nota = new Nota();
+		try {
+			nota.get(seleccionarNotaCCU.getIdSelectedNota());
+			
+			crearEditarNotaCCU = new CrearEditarNotaCCU(this.miVista);
+			crearEditarNotaCCU.setNota(nota);
+			crearEditarNotaCCU.iniciar();
+			
+			// Cuando termine la controladora anterior, refrescamos la de seleccionar 
+			// para que aparezca la nueva
+			seleccionarNotaCCU.reiniciar();
+		}
+		catch (Exception e) {
+		}
+	}
+	// -------------------------------------------------------------------------------------
 	public void buttonClick(ButtonEvent ev) {
 		switch (ev.getButtonName()) {
 			case "Borrar":
@@ -96,6 +113,9 @@ public class MainCCU implements ButtonListener, SeleccionarNotaCCUListener {
 				break;
 			case "Nuevo":
 				crearNuevaNota();
+				break;
+			case "Editar":
+				editarNota();
 				break;
 		}
 	}
