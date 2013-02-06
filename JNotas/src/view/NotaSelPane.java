@@ -15,7 +15,6 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -52,7 +51,7 @@ public class NotaSelPane extends JPanel implements ActionListener {
 
 	private JTextField textBuscar;
 	JList<String> listNotas;
-	DefaultListModel<String> datos = new DefaultListModel<String>();
+	public DefaultListModel<String> datos = new DefaultListModel<String>();
 	JButton btnBuscar;
 
 	// #endregion
@@ -102,19 +101,94 @@ public class NotaSelPane extends JPanel implements ActionListener {
 		refresh();
 	}
 
+	public void setIdSelectedNota(int value) {
+		seleccionarNotaById(value); 
+	}
+	
 	// #endregion
 
 	// #region Métodos auxiliares
 
 	private void recargarListNotas() {
 		listNotas = new JList<String>(datos);
-		listNotas.addListSelectionListener(new ListSelectionListener() {
-			public void valueChanged(ListSelectionEvent arg0) {
-				_raiseNotaClickEvent(listNotas.getSelectedIndex(), TipoAccion.SIMPLE_CLICK);
-			}
-		});
 		
-		MouseListener mouseListener = new MouseAdapter() {
+		listNotas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+		listNotas.setBorder(new LineBorder(new Color(0, 0, 0)));
+		GridBagConstraints gbc_listNotas = new GridBagConstraints();
+		gbc_listNotas.gridheight = 2;
+		gbc_listNotas.insets = new Insets(5, 5, 5, 0);
+		gbc_listNotas.weighty = 1.0;
+		gbc_listNotas.weightx = 1.0;
+		gbc_listNotas.anchor = GridBagConstraints.NORTHEAST;
+		gbc_listNotas.fill = GridBagConstraints.BOTH;
+		gbc_listNotas.gridwidth = 2;
+		gbc_listNotas.gridx = 0;
+		gbc_listNotas.gridy = 1;
+		add(listNotas, gbc_listNotas);
+	}
+	
+	private void refresh() {
+		desactivarEventos();
+		datos.removeAllElements();
+		for (int i = 0; i < list.size(); i++) {
+			datos.addElement("[" + String.valueOf(list.getNota(i).getId()) + "] " + list.getNota(i).getTitulo());
+		}
+		activarEventos();
+
+		seleccionarFirstNota();
+		this.repaint();
+	}
+
+	// #endregion
+
+	// #region Métodos públicos
+	
+	public void seleccionarFirstNota() {
+		listNotas.setSelectedIndex(0);
+	}
+	
+	public void seleccionarNotaById(int id) {
+		for (int i = 0; i < list.size(); i++) {
+			if (datos.getElementAt(i).contains("[" + id + "]")) {
+				listNotas.setSelectedIndex(i);
+				break;
+			}
+		}
+	}
+	
+	// #endregion
+	
+	// #region Gestión de eventos de elementos gráficos
+
+	ListSelectionListener listSelectionListener;
+	KeyAdapter keyAdapter;
+	MouseAdapter mouseAdapter;
+	
+	private void activarEventos() {
+		listSelectionListener = new ListSelectionListener() {
+				public void valueChanged(ListSelectionEvent arg0) {
+					_raiseNotaClickEvent(listNotas.getSelectedIndex(), TipoAccion.SIMPLE_CLICK);
+				}
+			};
+			
+			
+		keyAdapter = new KeyAdapter() {
+				@Override
+				public void keyTyped(KeyEvent e) {
+					int index = listNotas.getSelectedIndex();
+					
+					switch ((int) e.getKeyChar()) {
+						case 10:
+							_raiseNotaClickEvent(index, TipoAccion.INTRO);
+							break;
+						case 127:
+							_raiseNotaClickEvent(index, TipoAccion.SUPRIMIR);
+					}
+				}
+			};
+			
+		mouseAdapter = new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				int index;
 				
@@ -133,64 +207,20 @@ public class NotaSelPane extends JPanel implements ActionListener {
 			}
 		};
 
+			
+		listNotas.addListSelectionListener(listSelectionListener);
 		
-		listNotas.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyTyped(KeyEvent e) {
-				int index = listNotas.getSelectedIndex();
-				
-				switch ((int) e.getKeyChar()) {
-					case 10:
-						_raiseNotaClickEvent(index, TipoAccion.INTRO);
-						break;
-					case 127:
-						_raiseNotaClickEvent(index, TipoAccion.SUPRIMIR);
-				}
-			}
-		});
-		
-		listNotas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		listNotas.addMouseListener(mouseListener);
-		listNotas.setBorder(new LineBorder(new Color(0, 0, 0)));
-		GridBagConstraints gbc_listNotas = new GridBagConstraints();
-		gbc_listNotas.gridheight = 2;
-		gbc_listNotas.insets = new Insets(5, 5, 5, 0);
-		gbc_listNotas.weighty = 1.0;
-		gbc_listNotas.weightx = 1.0;
-		gbc_listNotas.anchor = GridBagConstraints.NORTHEAST;
-		gbc_listNotas.fill = GridBagConstraints.BOTH;
-		gbc_listNotas.gridwidth = 2;
-		gbc_listNotas.gridx = 0;
-		gbc_listNotas.gridy = 1;
-		add(listNotas, gbc_listNotas);
+		listNotas.addKeyListener(keyAdapter);
+
+		listNotas.addMouseListener(mouseAdapter);
 	}
 	
-	private void refresh() {
-		datos.removeAllElements();
-		for (int i = 0; i < list.size(); i++) {
-			datos.addElement("[" + String.valueOf(list.getNota(i).getId()) + "] " + list.getNota(i).getTitulo());
-		}
-
-		// ----------------------------------
-		//recargarListNotas();
-		// ----------------------------------
-		seleccionarFirstNota();
-		this.repaint();
-	}
-
-	// #endregion
-
-	// #region Métodos públicos
-	
-	public void seleccionarFirstNota() {
-		listNotas.setSelectedIndex(0);
-		_raiseNotaClickEvent(0, TipoAccion.SIMPLE_CLICK);
+	public void desactivarEventos() {
+		listNotas.removeListSelectionListener(listSelectionListener);
+		listNotas.removeKeyListener(keyAdapter);
+		listNotas.removeMouseListener(mouseAdapter);
 	}
 	
-	// #endregion
-	
-	// #region Gestión de eventos de elementos gráficos
-
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnBuscar) {
 			_raiseButtonBuscarClickEvent(btnBuscar);

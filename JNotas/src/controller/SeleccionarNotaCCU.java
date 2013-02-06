@@ -43,6 +43,9 @@ public class SeleccionarNotaCCU implements NotaSelPaneListener {
 		return this.idSelectedNota;
 	}
 	
+	public void setIdSelectedNota(int value) {
+		miVista.setIdSelectedNota(value);
+	}
 	// #endregion
 
 	// #region Métodos de controladoras
@@ -54,6 +57,7 @@ public class SeleccionarNotaCCU implements NotaSelPaneListener {
 			miVista.setList(notas);
 		}
 		catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 
