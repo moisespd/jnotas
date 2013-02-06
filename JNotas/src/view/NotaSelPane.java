@@ -2,13 +2,17 @@ package view;
 
 // #region Imports
 
+
 // #region Objetos de presentación 
+
 import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -23,14 +27,11 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.LineBorder;
-
-import view.NotaSelPaneEvent.TipoAccion;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import model.NotasList;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import javax.swing.event.ListSelectionListener;
-import javax.swing.event.ListSelectionEvent;
+import view.NotaSelPaneEvent.TipoAccion;
 // #endregion
 // #region Objetos de negocio
 // #endregion
@@ -46,7 +47,7 @@ public class NotaSelPane extends JPanel implements ActionListener {
 	// #endregion
 
 	// #region Objetos del diseñador de formularios
-
+	
 	private static final long serialVersionUID = 0;
 
 	private JTextField textBuscar;
@@ -62,9 +63,9 @@ public class NotaSelPane extends JPanel implements ActionListener {
 		setForeground(Color.LIGHT_GRAY);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[] { 315, 99, 0 };
-		gridBagLayout.rowHeights = new int[] { 25, 241, 0 };
-		gridBagLayout.columnWeights = new double[] { 0.0, 0.0, Double.MIN_VALUE };
-		gridBagLayout.rowWeights = new double[] { 0.0, 0.0, Double.MIN_VALUE };
+		gridBagLayout.rowHeights = new int[] { 25, 89, 85, 0 };
+		gridBagLayout.columnWeights = new double[] { 1.0, 0.0, Double.MIN_VALUE };
+		gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 1.0, Double.MIN_VALUE };
 		setLayout(gridBagLayout);
 
 		textBuscar = new JTextField();
@@ -82,61 +83,14 @@ public class NotaSelPane extends JPanel implements ActionListener {
 		GridBagConstraints gbc_btnBuscar = new GridBagConstraints();
 		gbc_btnBuscar.anchor = GridBagConstraints.NORTH;
 		gbc_btnBuscar.fill = GridBagConstraints.HORIZONTAL;
-		gbc_btnBuscar.insets = new Insets(5, 5, 5, 5);
+		gbc_btnBuscar.insets = new Insets(5, 5, 5, 0);
 		gbc_btnBuscar.gridx = 1;
 		gbc_btnBuscar.gridy = 0;
 		add(btnBuscar, gbc_btnBuscar);
 
-		listNotas = new JList<String>(datos);
-		listNotas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		listNotas.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyTyped(KeyEvent e) {
-				int index = listNotas.getSelectedIndex();
-				
-				switch ((int) e.getKeyChar()) {
-					case 10:
-						_raiseNotaClickEvent(index, TipoAccion.INTRO);
-						break;
-					case 127:
-						_raiseNotaClickEvent(index, TipoAccion.SUPRIMIR);
-				}
-			}
-		});
-
-		MouseListener mouseListener = new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
-				int index;
-				
-				if (e.getClickCount() == 1) {
-					index = listNotas.locationToIndex(e.getPoint());
-					System.out.println("index = " + index);
-					System.out.println("selected value = " + listNotas.getSelectedValue());
-					
-					listNotas.setSelectedIndex(index);
-					_raiseNotaClickEvent(index, TipoAccion.SIMPLE_CLICK);
-				}
-
-				if (e.getClickCount() == 2) {
-					index = listNotas.locationToIndex(e.getPoint());
-					_raiseNotaClickEvent(index, TipoAccion.DOUBLE_CLICK);
-				}
-			}
-		};
 		
-		listNotas.addMouseListener(mouseListener);
-		listNotas.setBorder(new LineBorder(new Color(0, 0, 0)));
-		GridBagConstraints gbc_listNotas = new GridBagConstraints();
-		gbc_listNotas.insets = new Insets(5, 5, 5, 5);
-		gbc_listNotas.weighty = 1.0;
-		gbc_listNotas.weightx = 1.0;
-		gbc_listNotas.anchor = GridBagConstraints.NORTHEAST;
-		gbc_listNotas.fill = GridBagConstraints.BOTH;
-		gbc_listNotas.gridwidth = 2;
-		gbc_listNotas.gridx = 0;
-		gbc_listNotas.gridy = 1;
-		add(listNotas, gbc_listNotas);
-
+		// ------------------------------------
+		recargarListNotas();
 	}
 
 	// #endregion
@@ -152,13 +106,74 @@ public class NotaSelPane extends JPanel implements ActionListener {
 
 	// #region Métodos auxiliares
 
+	private void recargarListNotas() {
+		listNotas = new JList<String>(datos);
+		listNotas.addListSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent arg0) {
+				_raiseNotaClickEvent(listNotas.getSelectedIndex(), TipoAccion.SIMPLE_CLICK);
+			}
+		});
+		
+		MouseListener mouseListener = new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				int index;
+				
+				if (e.getClickCount() == 1) {
+					index = listNotas.getSelectedIndex();
+					System.out.println("index = " + index);
+					
+					listNotas.setSelectedIndex(index);
+					_raiseNotaClickEvent(index, TipoAccion.SIMPLE_CLICK);
+				}
+
+				if (e.getClickCount() == 2) {
+					index = listNotas.locationToIndex(e.getPoint());
+					_raiseNotaClickEvent(index, TipoAccion.DOUBLE_CLICK);
+				}
+			}
+		};
+
+		
+		listNotas.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				int index = listNotas.getSelectedIndex();
+				
+				switch ((int) e.getKeyChar()) {
+					case 10:
+						_raiseNotaClickEvent(index, TipoAccion.INTRO);
+						break;
+					case 127:
+						_raiseNotaClickEvent(index, TipoAccion.SUPRIMIR);
+				}
+			}
+		});
+		
+		listNotas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		listNotas.addMouseListener(mouseListener);
+		listNotas.setBorder(new LineBorder(new Color(0, 0, 0)));
+		GridBagConstraints gbc_listNotas = new GridBagConstraints();
+		gbc_listNotas.gridheight = 2;
+		gbc_listNotas.insets = new Insets(5, 5, 5, 0);
+		gbc_listNotas.weighty = 1.0;
+		gbc_listNotas.weightx = 1.0;
+		gbc_listNotas.anchor = GridBagConstraints.NORTHEAST;
+		gbc_listNotas.fill = GridBagConstraints.BOTH;
+		gbc_listNotas.gridwidth = 2;
+		gbc_listNotas.gridx = 0;
+		gbc_listNotas.gridy = 1;
+		add(listNotas, gbc_listNotas);
+	}
+	
 	private void refresh() {
 		datos.removeAllElements();
 		for (int i = 0; i < list.size(); i++) {
 			datos.addElement("[" + String.valueOf(list.getNota(i).getId()) + "] " + list.getNota(i).getTitulo());
 		}
 
-		listNotas = new JList<String>(datos);
+		// ----------------------------------
+		//recargarListNotas();
+		// ----------------------------------
 		seleccionarFirstNota();
 		this.repaint();
 	}
