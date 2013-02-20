@@ -4,17 +4,19 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import model.CarpetasList;
 import model.NotasList;
 import view.NotaSelPane;
 import view.NotaSelPaneEvent;
-import view.NotaSelPaneListener;
 import view.NotaSelPaneEvent.TipoAccion;
+import view.NotaSelPaneListener;
 
 public class SeleccionarNotaCCU implements NotaSelPaneListener {
 
 	// #region Objetos de negocio
 
 	NotasList notas = new NotasList();
+	CarpetasList carpetas = new CarpetasList();
 	int idSelectedNota = -1;
 	
 	// #endregion
@@ -42,10 +44,11 @@ public class SeleccionarNotaCCU implements NotaSelPaneListener {
 	public int getIdSelectedNota() {
 		return this.idSelectedNota;
 	}
-	
+
 	public void setIdSelectedNota(int value) {
 		miVista.setIdSelectedNota(value);
 	}
+	
 	// #endregion
 
 	// #region Métodos de controladoras
@@ -53,8 +56,13 @@ public class SeleccionarNotaCCU implements NotaSelPaneListener {
 	public void reiniciar() {
 		try {
 			notas = new NotasList();
+			carpetas = new CarpetasList();
+			
 			notas.get();
+			carpetas.get();
+			
 			miVista.setList(notas);
+			miVista.setCarpetasList(carpetas);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -65,7 +73,9 @@ public class SeleccionarNotaCCU implements NotaSelPaneListener {
 	public void iniciar() {
 		try {
 			notas.get();
+			carpetas.get();
 			miVista.setList(notas);
+			miVista.setCarpetasList(carpetas);
 		}
 		catch (Exception e) {
 		}
@@ -86,6 +96,7 @@ public class SeleccionarNotaCCU implements NotaSelPaneListener {
 		catch (Exception ex) {
 		}
 		miVista.setList(notas);
+		miVista.setCarpetasList(carpetas);
 	}
 	
 	public void notaClick(NotaSelPaneEvent e) {

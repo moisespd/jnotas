@@ -29,6 +29,7 @@ import javax.swing.border.LineBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import model.CarpetasList;
 import model.NotasList;
 import view.NotaSelPaneEvent.TipoAccion;
 // #endregion
@@ -42,7 +43,8 @@ public class NotaSelPane extends JPanel implements ActionListener {
 	// #region Objetos de negocio
 
 	NotasList list = new NotasList();
-
+	CarpetasList carpetasList = new CarpetasList();
+	
 	// #endregion
 
 	// #region Objetos del diseñador de formularios
@@ -50,7 +52,10 @@ public class NotaSelPane extends JPanel implements ActionListener {
 	private static final long serialVersionUID = 0;
 
 	private JTextField textBuscar;
+	
 	JList<String> listNotas;
+	JList<String> listCarpetas;
+	
 	public DefaultListModel<String> datos = new DefaultListModel<String>();
 	JButton btnBuscar;
 
@@ -96,11 +101,17 @@ public class NotaSelPane extends JPanel implements ActionListener {
 
 	// #region Getters/Setters
 
+
 	public void setList(NotasList list) {
 		this.list = list;
 		refresh();
 	}
 
+	public void setCarpetasList(CarpetasList list) {
+		this.carpetasList = list;
+		refresh();
+	}
+	
 	public void setIdSelectedNota(int value) {
 		seleccionarNotaById(value); 
 	}
@@ -109,6 +120,7 @@ public class NotaSelPane extends JPanel implements ActionListener {
 
 	// #region Métodos auxiliares
 
+	
 	private void recargarListNotas() {
 		listNotas = new JList<String>(datos);
 		
@@ -130,13 +142,20 @@ public class NotaSelPane extends JPanel implements ActionListener {
 	
 	private void refresh() {
 		desactivarEventos();
+		
 		datos.removeAllElements();
+		for (int i = 0; i < carpetasList.size(); i++) {
+			datos.addElement("[" + String.valueOf(carpetasList.getCarpeta(i).getId()) + "] " + carpetasList.getCarpeta(i).getTitulo());
+		}
+
+		
 		for (int i = 0; i < list.size(); i++) {
 			datos.addElement("[" + String.valueOf(list.getNota(i).getId()) + "] " + list.getNota(i).getTitulo());
 		}
+		
 		activarEventos();
-
 		seleccionarFirstNota();
+		
 		this.repaint();
 	}
 
