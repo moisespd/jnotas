@@ -47,14 +47,18 @@ public class NotasList {
 	// Carga absolutamente todas las notas de la base de datos, sin tener en cuenta la carpeta contenedora
 	// ---------------------------------------------------------------------------------------------------
 	public void get() throws Exception {
+		this.get(-1);
+	}
+	
+	// ---------------------------------------------------------------------------------------------------
+	public void get(int idCarpeta) throws Exception {
 		Connection conn = DAL.devuelveConexionAbierta();
-		String sql = JNO_P_NotasGet();
+		String sql = JNO_P_NotasGet(idCarpeta);
 		ResultSet rs = DAL.executeQuery(conn, sql);
 		cargarRecordset(rs);
 		rs.close();
 		conn.close();
 	}
-	
 	// ---------------------------------------------------------------------------------------------------
 	public void get(String texto) throws Exception {
 		Connection conn = DAL.devuelveConexionAbierta();
@@ -80,14 +84,18 @@ public class NotasList {
 	
 	// #region Procedimientos almacenados
 	
-	private String JNO_P_NotasGet() {
+	private String JNO_P_NotasGet(int idCarpeta) {
 		String sql;
 		
 		sql =  new String(
 				"select " +
 				"	* " +
-				"from Notas " +
-				"order by id ");
+				"from Notas ");
+				
+		if (idCarpeta > 0)
+			sql.concat("where idCarpeta = " + idCarpeta + " ");
+		
+		sql.concat("order by id ");
 				
 		return sql;
 	}

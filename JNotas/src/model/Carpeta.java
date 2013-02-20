@@ -18,6 +18,8 @@ public class Carpeta extends BussinessObject {
 	private int idCarpetaPadre;
 	private String titulo;
 	
+	private NotasList misNotas = new NotasList();
+	
 	// #endregion
 
 	// #region Getters/Setters
@@ -41,6 +43,10 @@ public class Carpeta extends BussinessObject {
 	// ----------------------------------------------------------------------------------
 	public void setTitulo(String titulo) {
 		this.titulo = titulo;
+	}
+	// ----------------------------------------------------------------------------------
+	public NotasList getNotas() {
+		return misNotas;
 	}
 	// ----------------------------------------------------------------------------------
 	
@@ -135,16 +141,20 @@ public class Carpeta extends BussinessObject {
 		if (rs.next()) {
 			cargarRecordset(rs);
 		}
+		
 		rs.close();
 		conn.close();
-		
+
 		this.isNew = false;
 	}
 	// ----------------------------------------------------------------------------------
-	public void cargarRecordset(ResultSet rs) throws SQLException {
+	public void cargarRecordset(ResultSet rs) throws Exception {
 		this.id = rs.getInt("id");
 		this.idCarpetaPadre = rs.getInt("idCarpetaPadre");
 		this.titulo = rs.getString("titulo");
+
+		misNotas = new NotasList();
+		misNotas.get(this.id); 
 	}
 	
 	// #endregion

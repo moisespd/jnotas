@@ -15,7 +15,6 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -30,7 +29,9 @@ import javax.swing.border.LineBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import model.Carpeta;
 import model.CarpetasList;
+import model.Nota;
 import model.NotasList;
 import view.NotaSelPaneEvent.TipoAccion;
 // #endregion
@@ -142,18 +143,24 @@ public class NotaSelPane extends JPanel implements ActionListener {
 	}
 	
 	private void refresh() {
+		Carpeta c;
+		NotasList notas;
+		Nota n;
+		
 		desactivarEventos();
 		
 		datos.removeAllElements();
 		for (int i = 0; i < carpetasList.size(); i++) {
-			datos.addElement("[" + String.valueOf(carpetasList.getCarpeta(i).getId()) + "] " + carpetasList.getCarpeta(i).getTitulo());
+			c = carpetasList.getCarpeta(i);
+			datos.addElement("[" + String.valueOf(c.getId()) + "] " + c.getTitulo());
+			
+			notas = c.getNotas();
+			for (int j = 0; j < notas.size(); j++) {
+				n = notas.getNota(j);
+				datos.addElement("    [" + String.valueOf(n.getId()) + "] " + n.getTitulo());				
+			}
 		}
 
-		
-		for (int i = 0; i < list.size(); i++) {
-			datos.addElement("[" + String.valueOf(list.getNota(i).getId()) + "] " + list.getNota(i).getTitulo());
-		}
-		
 		activarEventos();
 		seleccionarFirstNota();
 		

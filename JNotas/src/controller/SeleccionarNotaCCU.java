@@ -15,7 +15,6 @@ public class SeleccionarNotaCCU implements NotaSelPaneListener {
 
 	// #region Objetos de negocio
 
-	NotasList notas = new NotasList();
 	CarpetasList carpetas = new CarpetasList();
 	int idSelectedNota = -1;
 	
@@ -55,13 +54,10 @@ public class SeleccionarNotaCCU implements NotaSelPaneListener {
 
 	public void reiniciar() {
 		try {
-			notas = new NotasList();
 			carpetas = new CarpetasList();
 			
-			notas.get();
 			carpetas.get();
 			
-			miVista.setList(notas);
 			miVista.setCarpetasList(carpetas);
 		}
 		catch (Exception e) {
@@ -72,9 +68,7 @@ public class SeleccionarNotaCCU implements NotaSelPaneListener {
 	// ------------------------------------------------------------------------------------------
 	public void iniciar() {
 		try {
-			notas.get();
 			carpetas.get();
-			miVista.setList(notas);
 			miVista.setCarpetasList(carpetas);
 		}
 		catch (Exception e) {
@@ -89,11 +83,13 @@ public class SeleccionarNotaCCU implements NotaSelPaneListener {
 	// #region Gestión de eventos del panel
 	
 	public void buttonBuscarClick(NotaSelPaneEvent e) {
+		NotasList notas = new NotasList();
+		
 		try {
-			notas = new NotasList();
 			notas.get(e.getText());
 		}
 		catch (Exception ex) {
+			ex.printStackTrace();
 		}
 		miVista.setList(notas);
 		miVista.setCarpetasList(carpetas);
